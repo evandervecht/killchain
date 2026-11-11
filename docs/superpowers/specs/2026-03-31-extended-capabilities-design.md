@@ -77,7 +77,7 @@ packages/
 ```
 
 **Core detection engine** (`packages/core`):
-- Reads `skills/security-audit/checkpoints.yaml` and `references/*.md`
+- Reads `skills/killchain/checkpoints.yaml` and `references/*.md`
 - Runs regex patterns against file content
 - Returns structured findings: `{ checkpointId, severity, line, column, message, reference }`
 - Language detection via indicator files (reuses SKILL.md mapping)

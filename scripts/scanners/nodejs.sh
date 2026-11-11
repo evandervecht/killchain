@@ -12,7 +12,7 @@ WARNINGS=0
 # Auto-detect Node.js source directories
 SCAN_DIRS=()
 for dir in src lib server api routes controllers middleware services handlers; do
-    if [[ -d "$PROJECT_DIR/$dir" ]]; then
+    if [[ -d "$PROJECT_DIR/$dir" && ! -L "$PROJECT_DIR/$dir" ]]; then
         SCAN_DIRS+=("$PROJECT_DIR/$dir")
     fi
 done
@@ -239,7 +239,7 @@ echo ""
 echo "=== Checking Dependencies ==="
 if [[ -f "$PROJECT_DIR/package-lock.json" || -f "$PROJECT_DIR/yarn.lock" || -f "$PROJECT_DIR/pnpm-lock.yaml" ]]; then
     if command -v npm &> /dev/null && [[ -f "$PROJECT_DIR/package-lock.json" ]]; then
-        AUDIT_OUTPUT=$(cd "$PROJECT_DIR" && npm audit --json 2>/dev/null | head -50 || true)
+        AUDIT_OUTPUT=$(cd "$PROJECT_DIR" && npm audit --json --registry=https://registry.npmjs.org/ 2>/dev/null | head -50 || true)
         VULN_COUNT=$(echo "$AUDIT_OUTPUT" | grep -o '"vulnerabilities"' | wc -l || echo "0")
         if [[ "$VULN_COUNT" -gt 0 ]]; then
             echo "WARNING: Vulnerable dependencies found (run 'npm audit' for details)"
@@ -262,4 +262,4 @@ echo "Errors: $ERRORS"
 echo "Warnings: $WARNINGS"
 
 # Exit with error count for dispatcher to aggregate
-exit "$ERRORS"
+exit $(( ERRORS > 255 ? 255 : ERRORS ))

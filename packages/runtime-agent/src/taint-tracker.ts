@@ -32,14 +32,26 @@ export function setReportCallback(cb: (finding: TaintFinding) => void) {
 }
 
 export function markTainted(value: string, source: TaintSource): string {
-  // Store taint label for this string value
-  taintedStrings.set(value, source);
-  // Also store truncated/transformed versions
-  if (value.length > 0) {
-    taintedStrings.set(value.trim(), source);
-    taintedStrings.set(value.toLowerCase(), source);
-  }
+  // Store taint label for this string value and its common transformations
+  remember(value, source);
+  remember(value.trim(), source);
+  remember(value.toLowerCase(), source);
   return value;
+}
+
+const MAX_TAINTED = 10_000;
+
+// shortcut: one global map, capped by evicting the oldest entry, so request traffic cannot
+// grow it without limit. Scope taint per request (AsyncLocalStorage) before running this
+// under production traffic. Values under 4 characters are skipped: they match ordinary
+// strings the application itself passes to a sink and would block legitimate calls.
+function remember(value: string, source: TaintSource): void {
+  if (value.length < 4) return;
+  taintedStrings.delete(value);
+  taintedStrings.set(value, source);
+  if (taintedStrings.size > MAX_TAINTED) {
+    taintedStrings.delete(taintedStrings.keys().next().value as string);
+  }
 }
 
 export function isTainted(value: unknown): TaintSource | null {

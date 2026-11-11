@@ -13,11 +13,11 @@
 ### Task 1: IaC Security Reference Doc
 
 **Files:**
-- Create: `skills/security-audit/references/iac-security.md`
+- Create: `skills/killchain/references/iac-security.md`
 
 - [ ] **Step 1: Create the IaC security reference doc**
 
-Create `skills/security-audit/references/iac-security.md` following the format of existing reference docs (vulnerable/secure code examples, detection patterns, prevention checklists). Cover:
+Create `skills/killchain/references/iac-security.md` following the format of existing reference docs (vulnerable/secure code examples, detection patterns, prevention checklists). Cover:
 
 1. **Dockerfile Security**
    - Running as root (`USER root` or missing `USER` directive)
@@ -48,7 +48,7 @@ Include vulnerable and secure code examples for each. End with a prevention chec
 - [ ] **Step 2: Commit**
 
 ```bash
-git add skills/security-audit/references/iac-security.md
+git add skills/killchain/references/iac-security.md
 git commit -m "docs: add IaC security reference (Dockerfile, K8s, Terraform)"
 ```
 
@@ -57,11 +57,11 @@ git commit -m "docs: add IaC security reference (Dockerfile, K8s, Terraform)"
 ### Task 2: API Security Reference Doc
 
 **Files:**
-- Create: `skills/security-audit/references/api-security.md`
+- Create: `skills/killchain/references/api-security.md`
 
 - [ ] **Step 1: Create the API security reference doc**
 
-Create `skills/security-audit/references/api-security.md` mapping the OWASP API Top 10 (2023) with detection patterns. Cover:
+Create `skills/killchain/references/api-security.md` mapping the OWASP API Top 10 (2023) with detection patterns. Cover:
 
 1. **API1 - BOLA** (Broken Object-Level Authorization) - deeper than current IDOR checks, API-specific patterns
 2. **API2 - Broken Authentication** - API token/key auth patterns
@@ -81,7 +81,7 @@ Include REST-specific: versioning security, HATEOAS abuse, content-type validati
 - [ ] **Step 2: Commit**
 
 ```bash
-git add skills/security-audit/references/api-security.md
+git add skills/killchain/references/api-security.md
 git commit -m "docs: add API security reference (OWASP API Top 10, GraphQL)"
 ```
 
@@ -90,11 +90,11 @@ git commit -m "docs: add API security reference (OWASP API Top 10, GraphQL)"
 ### Task 3: Frontend Security Reference Doc
 
 **Files:**
-- Create: `skills/security-audit/references/frontend-security.md`
+- Create: `skills/killchain/references/frontend-security.md`
 
 - [ ] **Step 1: Create the frontend security reference doc**
 
-Create `skills/security-audit/references/frontend-security.md` covering:
+Create `skills/killchain/references/frontend-security.md` covering:
 
 1. **DOM-based XSS** - sinks (innerHTML, document.write, eval, setTimeout with string), sources (location.hash, location.search, document.referrer, postMessage data)
 2. **Subresource Integrity (SRI)** - when to use, how to generate, crossorigin attribute
@@ -110,7 +110,7 @@ Include vulnerable/secure JavaScript code examples for each pattern.
 - [ ] **Step 2: Commit**
 
 ```bash
-git add skills/security-audit/references/frontend-security.md
+git add skills/killchain/references/frontend-security.md
 git commit -m "docs: add frontend security reference (DOM XSS, SRI, CORS)"
 ```
 
@@ -119,11 +119,11 @@ git commit -m "docs: add frontend security reference (DOM XSS, SRI, CORS)"
 ### Task 4: AI/LLM Agent Security Reference Doc
 
 **Files:**
-- Create: `skills/security-audit/references/llm-security.md`
+- Create: `skills/killchain/references/llm-security.md`
 
 - [ ] **Step 1: Create the LLM security reference doc**
 
-Create `skills/security-audit/references/llm-security.md` mapping the OWASP Top 10 for LLM Applications (2025) to AI agent/skill auditing patterns. Cover:
+Create `skills/killchain/references/llm-security.md` mapping the OWASP Top 10 for LLM Applications (2025) to AI agent/skill auditing patterns. Cover:
 
 1. **LLM01 - Prompt Injection** - direct (user input altering behavior), indirect (external content with embedded instructions), tool output injection. Detection: skills ingesting unvalidated external content, missing input sanitization instructions.
 2. **LLM02 - Sensitive Information Disclosure** - secrets in system prompts/SKILL.md/AGENTS.md, sensitive files loaded into context (.env, private keys), unredacted logging.
@@ -148,7 +148,7 @@ Include sections on:
 - [ ] **Step 2: Commit**
 
 ```bash
-git add skills/security-audit/references/llm-security.md
+git add skills/killchain/references/llm-security.md
 git commit -m "docs: add LLM security reference (OWASP LLM Top 10 2025)"
 ```
 
@@ -157,7 +157,7 @@ git commit -m "docs: add LLM security reference (OWASP LLM Top 10 2025)"
 ### Task 5: Add IaC Mechanical Checkpoints
 
 **Files:**
-- Modify: `skills/security-audit/checkpoints.yaml` (append to `mechanical:` section before `llm_reviews:`)
+- Modify: `skills/killchain/checkpoints.yaml` (append to `mechanical:` section before `llm_reviews:`)
 
 - [ ] **Step 1: Add IaC checkpoints to checkpoints.yaml**
 
@@ -236,7 +236,7 @@ Expected: Valid checkpoint count increases, no duplicate IDs.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add skills/security-audit/checkpoints.yaml
+git add skills/killchain/checkpoints.yaml
 git commit -m "feat: add IaC mechanical checkpoints (SA-IAC-01 through SA-IAC-10)"
 ```
 
@@ -245,7 +245,7 @@ git commit -m "feat: add IaC mechanical checkpoints (SA-IAC-01 through SA-IAC-10
 ### Task 6: Add API Security LLM Review Checkpoints
 
 **Files:**
-- Modify: `skills/security-audit/checkpoints.yaml` (append to `llm_reviews:` section)
+- Modify: `skills/killchain/checkpoints.yaml` (append to `llm_reviews:` section)
 
 - [ ] **Step 1: Add API security checkpoints**
 
@@ -338,7 +338,7 @@ python3 scripts/validate_checkpoints.py
 - [ ] **Step 3: Commit**
 
 ```bash
-git add skills/security-audit/checkpoints.yaml
+git add skills/killchain/checkpoints.yaml
 git commit -m "feat: add API security LLM review checkpoints (SA-API-01 through SA-API-06)"
 ```
 
@@ -347,7 +347,7 @@ git commit -m "feat: add API security LLM review checkpoints (SA-API-01 through 
 ### Task 7: Add Frontend Mechanical Checkpoints
 
 **Files:**
-- Modify: `skills/security-audit/checkpoints.yaml` (append to `mechanical:` section)
+- Modify: `skills/killchain/checkpoints.yaml` (append to `mechanical:` section)
 
 - [ ] **Step 1: Add frontend mechanical checkpoints**
 
@@ -443,7 +443,7 @@ python3 scripts/validate_checkpoints.py
 - [ ] **Step 4: Commit**
 
 ```bash
-git add skills/security-audit/checkpoints.yaml
+git add skills/killchain/checkpoints.yaml
 git commit -m "feat: add frontend security checkpoints (SA-FE-01 through SA-FE-07, SA-FE-LLM-01/02)"
 ```
 
@@ -452,7 +452,7 @@ git commit -m "feat: add frontend security checkpoints (SA-FE-01 through SA-FE-0
 ### Task 8: Add AI/LLM Agent Security Checkpoints
 
 **Files:**
-- Modify: `skills/security-audit/checkpoints.yaml` (append to both sections)
+- Modify: `skills/killchain/checkpoints.yaml` (append to both sections)
 
 - [ ] **Step 1: Add AI/LLM mechanical checkpoints**
 
@@ -571,7 +571,7 @@ python3 scripts/validate_checkpoints.py
 - [ ] **Step 4: Commit**
 
 ```bash
-git add skills/security-audit/checkpoints.yaml
+git add skills/killchain/checkpoints.yaml
 git commit -m "feat: add AI/LLM agent security checkpoints (SA-AI-01 through SA-AI-04, SA-AI-LLM-01 through SA-AI-LLM-05)"
 ```
 
@@ -580,7 +580,7 @@ git commit -m "feat: add AI/LLM agent security checkpoints (SA-AI-01 through SA-
 ### Task 9: Update SKILL.md
 
 **Files:**
-- Modify: `skills/security-audit/SKILL.md`
+- Modify: `skills/killchain/SKILL.md`
 
 - [ ] **Step 1: Update SKILL.md expertise areas and references**
 
@@ -610,7 +610,7 @@ In `## Security Checklist`, add:
 - [ ] **Step 2: Commit**
 
 ```bash
-git add skills/security-audit/SKILL.md
+git add skills/killchain/SKILL.md
 git commit -m "feat: update SKILL.md with IaC, API, frontend, and AI/LLM security"
 ```
 
@@ -628,7 +628,7 @@ Add a check that every reference file mentioned in SKILL.md exists in the refere
 ```python
     # Check that referenced files exist
     import os
-    ref_dir = "skills/security-audit/references"
+    ref_dir = "skills/killchain/references"
     ref_files = os.listdir(ref_dir)
     missing = []
     expected_refs = [
@@ -669,7 +669,7 @@ python3 scripts/validate_checkpoints.py
 - [ ] **Step 2: Verify all reference files exist**
 
 ```bash
-ls skills/security-audit/references/{iac-security,api-security,frontend-security,llm-security}.md
+ls skills/killchain/references/{iac-security,api-security,frontend-security,llm-security}.md
 ```
 
 - [ ] **Step 3: Verify SKILL.md is consistent**

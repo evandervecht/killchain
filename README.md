@@ -63,6 +63,8 @@ It is an [Agent Skill](https://agentskills.io), so it works in Claude Code, Curs
 - **Checks dependencies in a sandbox:** installs packages in a locked-down Docker container and watches what they do during install.
 - **Looks up known CVEs** for findings and dependencies through NVD and OSV.
 - **Maps to compliance:** SOC 2, ISO 27001, PCI DSS, HIPAA, GDPR, NIST CSF and the EU AI Act.
+- **Checks dependency health:** optional lookup of abandoned, deprecated and relicensed packages through the isitdeadyet.dev MCP server (paid plan).
+- **Audits a repository by URL:** clones it and reads it without building or running anything.
 - **Vets other agent skills** for prompt injection, hidden instructions and data exfiltration.
 - **Runs in your editor too:** MCP server, LSP server, VS Code extension and JetBrains plugin.
 
@@ -93,20 +95,30 @@ Score this vulnerability using CVSS v4.0
 Audit this AI skill for prompt injection risks
 ```
 
+Or use a mode:
+
+```
+/killchain                        # audit the current project
+/killchain target <git url>       # clone another repository and audit it, without running its code
+/killchain isitdeadyet            # dependency health through the isitdeadyet.dev MCP server
+```
+
+The `isitdeadyet` mode needs a paid [isitdeadyet.dev](https://isitdeadyet.dev) Pro plan and a personal token; without it the skill falls back to its own supply-chain checks.
+
 Or run the scripts yourself:
 
 ```sh
 ./scripts/security-audit-dispatcher.sh /path/to/project                 # scan, stack auto-detected
 ./scripts/dependency-sandbox.sh pnpm-project ./pnpm-lock.yaml           # install dependencies in the sandbox
-./skills/security-audit/scripts/github-security-audit.sh owner/repo     # GitHub repository settings
-./skills/security-audit/scripts/skill-scan.sh ~/.claude/skills/<skill>  # vet an installed agent skill
-python3 ./skills/security-audit/scripts/dashboard.py findings.json      # build dashboard.html
+./skills/killchain/scripts/github-security-audit.sh owner/repo     # GitHub repository settings
+./skills/killchain/scripts/skill-scan.sh ~/.claude/skills/<skill>  # vet an installed agent skill
+python3 ./skills/killchain/scripts/dashboard.py findings.json      # build dashboard.html
 ```
 
 ## Documentation
 
 - **Using it:** [Usage](docs/USAGE.md) · [Dependency sandbox](docs/dependency-sandbox.md) · [Editor setup](docs/editor-configs/)
-- **Reference:** [Coverage](docs/COVERAGE.md) (every language, framework and platform) · [Finding verification, attack chains and the dashboard](skills/security-audit/references/finding-verification.md)
+- **Reference:** [Coverage](docs/COVERAGE.md) (every language, framework and platform) · [Finding verification, attack chains and the dashboard](skills/killchain/references/finding-verification.md)
 - **How it works:** [Architecture](docs/ARCHITECTURE.md)
 - **Contributing:** [Add a language or framework](docs/CONTRIBUTING-REFERENCES.md) · [Security policy](SECURITY.md)
 

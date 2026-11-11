@@ -36,7 +36,7 @@ connection.onInitialize((_params: InitializeParams): InitializeResult => {
   try {
     const checkpointsPath = resolve(
       SKILL_ROOT,
-      "skills/security-audit/checkpoints.yaml",
+      "skills/killchain/checkpoints.yaml",
     );
     checkpointData = loadCheckpoints(checkpointsPath);
   } catch (e) {
@@ -97,6 +97,8 @@ function validateTextDocument(textDocument: TextDocument): void {
   if (checkpoints.length === 0) return;
 
   const text = textDocument.getText();
+  // Opened files are untrusted: very large files and lines make the regexes a denial of service.
+  if (text.length > 1_000_000) return;
   const lines = text.split("\n");
   const diagnostics: Diagnostic[] = [];
 
@@ -111,6 +113,7 @@ function validateTextDocument(textDocument: TextDocument): void {
     }
 
     for (let i = 0; i < lines.length; i++) {
+      if (lines[i].length > 5_000) continue;
       const match = regex.exec(lines[i]);
       if (match) {
         diagnostics.push({

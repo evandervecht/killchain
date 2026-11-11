@@ -12,7 +12,7 @@ WARNINGS=0
 # Auto-detect Elixir source directories
 SCAN_DIRS=()
 for dir in lib config test priv; do
-    if [[ -d "$PROJECT_DIR/$dir" ]]; then
+    if [[ -d "$PROJECT_DIR/$dir" && ! -L "$PROJECT_DIR/$dir" ]]; then
         SCAN_DIRS+=("$PROJECT_DIR/$dir")
     fi
 done
@@ -136,4 +136,4 @@ echo "Errors:   $ERRORS"
 echo "Warnings: $WARNINGS"
 echo "Total:    $((ERRORS + WARNINGS))"
 
-exit $ERRORS
+exit $(( ERRORS > 255 ? 255 : ERRORS ))

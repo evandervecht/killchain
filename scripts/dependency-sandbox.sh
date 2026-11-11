@@ -90,7 +90,8 @@ TARGET="$2"
 # Validate package name — reject shell metacharacters that enable injection
 # Allows: alphanumerics, @, ., _, -, /, =, :, ^, ~ (covers npm, pip, go, rust, dotnet)
 if [[ "$MODE" != *-project ]]; then
-    if [[ ! "$TARGET" =~ ^[a-zA-Z0-9@._/=:^~-]+$ ]]; then
+    # A leading "-" would be read as an option by the package manager; ".." is never a package.
+    if [[ ! "$TARGET" =~ ^[a-zA-Z0-9@][a-zA-Z0-9@._/=:^~-]*$ || "$TARGET" == *..* ]]; then
         echo "ERROR: Invalid package name '$TARGET' — contains disallowed characters"
         exit 2
     fi
@@ -276,22 +277,11 @@ case "$MODE" in
         analyze_project "$strace_dir_proj"
         ;;
 
-    go)
-        build_image "$SANDBOX_DIR/Dockerfile.go" "$CONTAINER_PREFIX-go"
-        # Go needs a go.mod; pass TARGET as positional arg to prevent sh -c injection
-        run_sandbox "$CONTAINER_PREFIX-go" sh -c 'go mod init sandbox && go get -- "$1" && go mod download' _ "$TARGET"
-        ;;
-
-    rust)
-        build_image "$SANDBOX_DIR/Dockerfile.rust" "$CONTAINER_PREFIX-rust"
-        # Rust needs a Cargo.toml; pass TARGET as positional arg to prevent sh -c injection
-        run_sandbox "$CONTAINER_PREFIX-rust" sh -c 'cargo init --name sandbox . && cargo add -- "$1" && cargo fetch' _ "$TARGET"
-        ;;
-
-    dotnet)
-        build_image "$SANDBOX_DIR/Dockerfile.dotnet" "$CONTAINER_PREFIX-dotnet"
-        # .NET needs a .csproj; pass TARGET as positional arg to prevent sh -c injection
-        run_sandbox "$CONTAINER_PREFIX-dotnet" sh -c 'dotnet new console -o . --no-restore && dotnet add package "$1" && dotnet restore' _ "$TARGET"
+    go|rust|dotnet)
+        # These modes passed a shell snippet to an entrypoint that ignored it, so the
+        # package was never installed and the run still reported CLEAN. Refuse instead.
+        echo "ERROR: single-package mode is not supported for '$MODE'. Use $MODE-project with a lockfile."
+        exit 2
         ;;
 
     go-project)

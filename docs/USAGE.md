@@ -23,7 +23,7 @@ git clone https://github.com/evandervecht/killchain.git
 
 ### Other AI Agents (Cursor, GitHub Copilot, etc.)
 
-Copy the `skills/security-audit/` directory into your agent's skill path. The skill is compatible with any Agent Skills-compatible platform.
+Copy the `skills/killchain/` directory into your agent's skill path. The skill is compatible with any Agent Skills-compatible platform.
 
 ---
 
@@ -57,7 +57,7 @@ The dispatcher auto-detects languages via indicator files (`package.json`, `requ
 ### 2. Audit a GitHub Repository's Security Settings
 
 ```bash
-./skills/security-audit/scripts/github-security-audit.sh owner/repo
+./skills/killchain/scripts/github-security-audit.sh owner/repo
 ```
 
 This checks: secret scanning, branch protection, Dependabot, CodeQL, workflow permissions, SECURITY.md, and more.
@@ -446,7 +446,7 @@ The audit would flag:
 
 ## Reference Docs
 
-All 64 reference docs are in `skills/security-audit/references/`.
+All 64 reference docs are in `skills/killchain/references/`.
 
 **Standards & Scoring:**
 

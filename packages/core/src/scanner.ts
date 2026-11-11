@@ -1,9 +1,20 @@
-import { readFileSync } from "node:fs";
+import { lstatSync, readFileSync } from "node:fs";
 import { glob } from "glob";
 import { join, relative } from "node:path";
 import type { Checkpoint, Finding, ScanResult } from "./types.js";
 import { loadCheckpoints, getRelevantCheckpoints } from "./checkpoint-loader.js";
 import { detectLanguages } from "./language-detector.js";
+
+const MAX_FILE_BYTES = 1_000_000;
+const MAX_LINE_CHARS = 5_000;
+
+// Scanned files are untrusted: do not follow a symlink out of the project, and skip
+// sizes that turn a regex scan into a denial of service.
+function readScannable(path: string): string | null {
+  const st = lstatSync(path);
+  if (!st.isFile() || st.size > MAX_FILE_BYTES) return null;
+  return readFileSync(path, "utf-8");
+}
 
 const IGNORE_PATTERNS = [
   "**/node_modules/**",
@@ -62,6 +73,7 @@ function scanFileContent(
     }
 
     for (let i = 0; i < lines.length; i++) {
+      if (lines[i].length > MAX_LINE_CHARS) continue;
       const match = regex.exec(lines[i]);
       if (match) {
         findings.push({
@@ -85,7 +97,7 @@ export async function scanProject(
   skillRoot: string,
 ): Promise<ScanResult> {
   const startTime = Date.now();
-  const checkpointsPath = join(skillRoot, "skills/security-audit/checkpoints.yaml");
+  const checkpointsPath = join(skillRoot, "skills/killchain/checkpoints.yaml");
 
   // Detect languages
   const stack = detectLanguages(projectPath);
@@ -120,7 +132,8 @@ export async function scanProject(
     for (const file of files) {
       const fullPath = join(projectPath, file);
       try {
-        const content = readFileSync(fullPath, "utf-8");
+        const content = readScannable(fullPath);
+        if (content === null) continue;
         filesScanned++;
         const findings = scanFileContent(file, content, cps);
         allFindings.push(...findings);
@@ -144,7 +157,7 @@ export async function scanFile(
   filePath: string,
   skillRoot: string,
 ): Promise<Finding[]> {
-  const checkpointsPath = join(skillRoot, "skills/security-audit/checkpoints.yaml");
+  const checkpointsPath = join(skillRoot, "skills/killchain/checkpoints.yaml");
   const data = loadCheckpoints(checkpointsPath);
 
   // Find checkpoints whose target glob matches this file
@@ -157,7 +170,8 @@ export async function scanFile(
   });
 
   try {
-    const content = readFileSync(filePath, "utf-8");
+    const content = readScannable(filePath);
+    if (content === null) return [];
     return scanFileContent(relative(process.cwd(), filePath), content, matchingCheckpoints);
   } catch {
     return [];

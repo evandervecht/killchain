@@ -3,7 +3,7 @@
 # requires-python = ">=3.10"
 # dependencies = []
 # ///
-"""Test the findings dashboard generator (skills/security-audit/scripts/dashboard.py).
+"""Test the findings dashboard generator (skills/killchain/scripts/dashboard.py).
 
 Run with a path argument to also keep the sample dashboard: test_dashboard.py out.html
 """
@@ -15,7 +15,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-SCRIPT = Path(__file__).resolve().parent.parent / "skills/security-audit/scripts/dashboard.py"
+SCRIPT = Path(__file__).resolve().parent.parent / "skills/killchain/scripts/dashboard.py"
 
 SAMPLE = {
     "target": "acme-shop",

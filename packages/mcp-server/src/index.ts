@@ -2,7 +2,10 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { resolve, dirname } from "node:path";
+import { resolve, dirname, relative, isAbsolute } from "node:path";
+import { realpathSync } from "node:fs";
+import { lookup } from "node:dns/promises";
+import { BlockList, isIP } from "node:net";
 import { fileURLToPath } from "node:url";
 import {
   scanProject,
@@ -23,6 +26,45 @@ const server = new McpServer({
   version: "0.1.0",
 });
 
+// Tool arguments come from a model that the scanned repository may have prompt-injected,
+// so file tools stay inside one root and the live scanner stays off internal addresses.
+const ALLOWED_ROOT = realpathSync(process.env.KILLCHAIN_ROOT ?? process.cwd());
+
+function insideRoot(p: string): string | null {
+  try {
+    const real = realpathSync(resolve(p));
+    const rel = relative(ALLOWED_ROOT, real);
+    return rel.startsWith("..") || isAbsolute(rel) ? null : real;
+  } catch {
+    return null;
+  }
+}
+
+const refuse = (text: string) => ({ content: [{ type: "text" as const, text }] });
+const OUTSIDE_ROOT = `Refused: the path is outside ${ALLOWED_ROOT}. Start the server in the project directory or set KILLCHAIN_ROOT.`;
+
+const internalNets = new BlockList();
+for (const [net, bits] of [
+  ["127.0.0.0", 8], ["10.0.0.0", 8], ["172.16.0.0", 12], ["192.168.0.0", 16],
+  ["169.254.0.0", 16], ["100.64.0.0", 10], ["0.0.0.0", 8],
+] as const) internalNets.addSubnet(net, bits);
+internalNets.addSubnet("::1", 128, "ipv6");
+internalNets.addSubnet("fc00::", 7, "ipv6");
+internalNets.addSubnet("fe80::", 10, "ipv6");
+
+// shortcut: checks the addresses the name resolves to now; a DNS answer that changes
+// before the request (rebinding) is not covered. Pin the resolved address if that matters.
+async function isInternalUrl(url: string): Promise<boolean> {
+  try {
+    const host = new URL(/^https?:\/\//i.test(url) ? url : `https://${url}`).hostname.replace(/^\[|\]$/g, "");
+    const family = isIP(host);
+    const addrs = family ? [{ address: host, family }] : await lookup(host, { all: true });
+    return addrs.some((a) => internalNets.check(a.address, a.family === 6 ? "ipv6" : "ipv4"));
+  } catch {
+    return true;
+  }
+}
+
 // === Tools ===
 
 server.tool(
@@ -32,7 +74,9 @@ server.tool(
     projectPath: z.string().describe("Absolute path to the project directory to scan"),
   },
   async ({ projectPath }) => {
-    const result = await scanProject(resolve(projectPath), SKILL_ROOT);
+    const root = insideRoot(projectPath);
+    if (!root) return refuse(OUTSIDE_ROOT);
+    const result = await scanProject(root, SKILL_ROOT);
     return {
       content: [
         {
@@ -51,7 +95,9 @@ server.tool(
     filePath: z.string().describe("Absolute path to the file to check"),
   },
   async ({ filePath }) => {
-    const findings = await scanFile(resolve(filePath), SKILL_ROOT);
+    const file = insideRoot(filePath);
+    if (!file) return refuse(OUTSIDE_ROOT);
+    const findings = await scanFile(file, SKILL_ROOT);
     return {
       content: [
         {
@@ -109,6 +155,12 @@ server.tool(
     url: z.string().describe("URL to scan (e.g., https://example.com)"),
   },
   async ({ url }) => {
+    if (/^[a-z][a-z0-9+.-]*:\/\//i.test(url) && !/^https?:\/\//i.test(url)) {
+      return refuse("Refused: only http and https URLs can be scanned.");
+    }
+    if (process.env.KILLCHAIN_ALLOW_INTERNAL !== "1" && (await isInternalUrl(url))) {
+      return refuse("Refused: the URL points at a local or internal address. Set KILLCHAIN_ALLOW_INTERNAL=1 to allow that.");
+    }
     const result = await scanLive(url);
     return {
       content: [
@@ -157,7 +209,7 @@ server.tool(
     const scriptPath = resolve(SKILL_ROOT, "scripts/dependency-sandbox.sh");
 
     // Validate package name — strict allowlist (no shell metacharacters)
-    if (!/^[a-zA-Z0-9@._\-/=:^~]+$/.test(pkg)) {
+    if (!/^[a-zA-Z0-9@][a-zA-Z0-9@._\-/=:^~]*$/.test(pkg) || pkg.includes("..")) {
       return {
         content: [{ type: "text" as const, text: `Invalid package name: contains disallowed characters` }],
       };

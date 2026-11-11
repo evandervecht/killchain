@@ -2,7 +2,7 @@
 # Focuses on security best practices for PHP/TYPO3 extensions
 
 version: 2
-skill_id: security-audit
+skill_id: killchain
 
 mechanical:
   # === SECURITY DOCUMENTATION ===

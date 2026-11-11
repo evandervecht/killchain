@@ -10,6 +10,6 @@
         }
     ],
     "extra": {
-        "ai-agent-skill": "skills/security-audit/SKILL.md"
+        "ai-agent-skill": "skills/killchain/SKILL.md"
     }
 }

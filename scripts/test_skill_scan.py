@@ -3,14 +3,14 @@
 # requires-python = ">=3.10"
 # dependencies = []
 # ///
-"""Test the agent skill scan's pattern pass (skills/security-audit/scripts/skill-scan.sh)."""
+"""Test the agent skill scan's pattern pass (skills/killchain/scripts/skill-scan.sh)."""
 
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
 
-SCRIPT = Path(__file__).resolve().parent.parent / "skills/security-audit/scripts/skill-scan.sh"
+SCRIPT = Path(__file__).resolve().parent.parent / "skills/killchain/scripts/skill-scan.sh"
 
 # (file content, code expected, description)
 BAD = [

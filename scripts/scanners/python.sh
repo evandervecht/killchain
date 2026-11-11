@@ -12,7 +12,7 @@ WARNINGS=0
 # Auto-detect Python source directories
 SCAN_DIRS=()
 for dir in src lib app; do
-    if [[ -d "$PROJECT_DIR/$dir" ]]; then
+    if [[ -d "$PROJECT_DIR/$dir" && ! -L "$PROJECT_DIR/$dir" ]]; then
         SCAN_DIRS+=("$PROJECT_DIR/$dir")
     fi
 done
@@ -298,4 +298,4 @@ else
     echo "PASS: No critical security errors detected"
 fi
 
-exit "$ERRORS"
+exit $(( ERRORS > 255 ? 255 : ERRORS ))

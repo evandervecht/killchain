@@ -6,13 +6,13 @@ The security-audit-skill is an AI agent skill that provides security audit capab
 
 ## Components
 
-### Skill Definition (`skills/security-audit/`)
+### Skill Definition (`skills/killchain/`)
 
 - **SKILL.md**: Entry point loaded by AI agents. Contains trigger patterns, procedural instructions, and links to references.
 - **checkpoints.yaml**: 80+ security checkpoints organized by category (authentication, input handling, output encoding, data protection, DevSecOps). Each checkpoint has severity, detection patterns, and remediation guidance.
 - **references/**: 19 standalone reference guides covering OWASP Top 10, CWE Top 25, CVSS scoring, framework-specific security (TYPO3/Symfony/Laravel), and supply chain security.
 
-### Audit Scripts (`skills/security-audit/scripts/`)
+### Audit Scripts (`skills/killchain/scripts/`)
 
 - **security-audit.sh**: Automated PHP project security audit. Scans source code for vulnerability patterns, checks dependencies, and produces a structured report.
 - **github-security-audit.sh**: GitHub repository security audit. Checks branch protection, Dependabot configuration, secret scanning, and CI/CD security posture.

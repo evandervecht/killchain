@@ -12,7 +12,7 @@ WARNINGS=0
 # Auto-detect C# source directories
 SCAN_DIRS=()
 for dir in src app Controllers Services; do
-    if [[ -d "$PROJECT_DIR/$dir" ]]; then
+    if [[ -d "$PROJECT_DIR/$dir" && ! -L "$PROJECT_DIR/$dir" ]]; then
         SCAN_DIRS+=("$PROJECT_DIR/$dir")
     fi
 done

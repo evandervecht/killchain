@@ -3,8 +3,8 @@
 What the review lanes hold a PR in this repo to. CLAUDE.md has the house rules; this file says what is worth raising.
 
 ## Important (blocker or major)
-- `skills/security-audit/SKILL.md` frontmatter that breaks `scripts/validate_skill.py`: name not a slug matching its directory, description over 1024 chars, empty body, or a backticked `*.md` reference that does not exist under `references/`.
-- A `description` or trigger edit that no longer matches what the skill does; other workspaces pin this skill by hash in `skills-lock.json`, so every byte of `skills/security-audit/` ships to them.
+- `skills/killchain/SKILL.md` frontmatter that breaks `scripts/validate_skill.py`: name not a slug matching its directory, description over 1024 chars, empty body, or a backticked `*.md` reference that does not exist under `references/`.
+- A `description` or trigger edit that no longer matches what the skill does; other workspaces pin this skill by hash in `skills-lock.json`, so every byte of `skills/killchain/` ships to them.
 - Skill text, references or scripts that make the skill fetch or execute remote content, or run tools beyond `allowed-tools` (grep, jq, gh, Read, Glob, Grep), without the user asking.
 - A change to `hooks/hooks.json` or `scripts/check_risky_command.py` that widens what the PreToolUse hook lets through, or has no case in `scripts/test_risky_patterns.py`.
 - A checkpoint added or changed in `checkpoints.yaml` without its eval fixtures (vulnerable and safe) in `evals/`, a valid `SA-` prefix in `scripts/validate_checkpoints.py`, or a scanner in `scripts/scanners/`.

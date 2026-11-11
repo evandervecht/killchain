@@ -12,7 +12,7 @@ WARNINGS=0
 # Auto-detect PHP source directories
 SCAN_DIRS=()
 for dir in src Classes; do
-    if [[ -d "$PROJECT_DIR/$dir" ]]; then
+    if [[ -d "$PROJECT_DIR/$dir" && ! -L "$PROJECT_DIR/$dir" ]]; then
         SCAN_DIRS+=("$PROJECT_DIR/$dir")
     fi
 done
@@ -258,7 +258,7 @@ echo ""
 echo "=== Checking Dependencies ==="
 if [[ -f "$PROJECT_DIR/composer.lock" ]]; then
     if command -v composer &> /dev/null; then
-        AUDIT_OUTPUT=$(cd "$PROJECT_DIR" && composer audit 2>&1 || true)
+        AUDIT_OUTPUT=$(cd "$PROJECT_DIR" && composer audit --no-plugins --no-scripts 2>&1 || true)
         if echo "$AUDIT_OUTPUT" | grep -q "Found"; then
             echo "⚠️  Vulnerable dependencies found:"
             echo "$AUDIT_OUTPUT" | head -20

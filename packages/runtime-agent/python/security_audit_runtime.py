@@ -35,15 +35,27 @@ _findings: list[dict] = []
 def mark_tainted(value: str, source_type: str, key: str, location: str = "") -> str:
     """Mark a string value as tainted (originating from user input)."""
     if isinstance(value, str) and value:
-        _tainted_values[value] = {
-            "type": source_type,
-            "key": key,
-            "location": location,
-        }
+        info = {"type": source_type, "key": key, "location": location}
         # Also mark common transformations
-        _tainted_values[value.strip()] = _tainted_values[value]
-        _tainted_values[value.lower()] = _tainted_values[value]
+        for v in (value, value.strip(), value.lower()):
+            _remember(v, info)
     return value
+
+
+_MAX_TAINTED = 10_000
+
+
+def _remember(value: str, info: dict) -> None:
+    # shortcut: one global dict, capped by evicting the oldest entry, so request traffic
+    # cannot grow it without limit; scope taint per request (contextvars) before running
+    # this under production traffic. Values under 4 characters are skipped: they match
+    # ordinary strings the application itself passes to a sink.
+    if len(value) < 4:
+        return
+    _tainted_values.pop(value, None)
+    _tainted_values[value] = info
+    if len(_tainted_values) > _MAX_TAINTED:
+        del _tainted_values[next(iter(_tainted_values))]
 
 
 def is_tainted(value) -> dict | None:
