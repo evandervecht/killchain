@@ -21,7 +21,7 @@ import {
   explainFinding,
   type Checkpoint,
   type CheckpointData,
-} from "@security-audit/core";
+} from "@killchain/core";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SKILL_ROOT = resolve(__dirname, "../../..");

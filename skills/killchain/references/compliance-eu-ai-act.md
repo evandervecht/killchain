@@ -1,6 +1,6 @@
 # EU AI Act Compliance Mapping (Cybersecurity & Technical Requirements)
 
-Maps the EU AI Act (Regulation (EU) 2024/1689) Articles 9, 13, 14, and 15 to security-audit-skill checkpoints. Use this reference when auditing AI systems — particularly high-risk AI systems (Annex III) and general-purpose AI (GPAI) models — for technical compliance. Checkpoints prefixed with LIVE-* are runtime/dynamic checks; all others are static analysis checkpoints defined in checkpoints.yaml.
+Maps the EU AI Act (Regulation (EU) 2024/1689) Articles 9, 13, 14, and 15 to killchain checkpoints. Use this reference when auditing AI systems — particularly high-risk AI systems (Annex III) and general-purpose AI (GPAI) models — for technical compliance. Checkpoints prefixed with LIVE-* are runtime/dynamic checks; all others are static analysis checkpoints defined in checkpoints.yaml.
 
 **Regulation:** Regulation (EU) 2024/1689 (EU AI Act)
 **Effective:** 1 August 2024; phased enforcement through 2 August 2027
@@ -166,7 +166,7 @@ Article 14 requires that high-risk AI systems be designed and developed in such 
 
 ## General-Purpose AI Models (Chapter V, Section 2)
 
-For providers of GPAI models, Article 53 requires transparency obligations and Article 55 addresses systemic risk. The security-audit-skill primarily supports cybersecurity requirements for systems built on GPAI models.
+For providers of GPAI models, Article 53 requires transparency obligations and Article 55 addresses systemic risk. The killchain primarily supports cybersecurity requirements for systems built on GPAI models.
 
 ### Article 53 -- GPAI Model Obligations
 
@@ -201,7 +201,7 @@ For providers of GPAI models, Article 53 requires transparency obligations and A
 
 **Overall EU AI Act technical coverage: ~45% of technical requirements.**
 
-The security-audit-skill provides strong coverage for Article 15(5)(b) (traditional cybersecurity) with 350+ checkpoints across all stacks. Article 15(4) (adversarial robustness) is partially covered through prompt injection and injection prevention checkpoints. The largest gaps are in AI-specific areas: adversarial ML testing, model-level attacks, transparency documentation, and formal risk management frameworks. These require specialised ML security tooling beyond static code analysis.
+The killchain provides strong coverage for Article 15(5)(b) (traditional cybersecurity) with 350+ checkpoints across all stacks. Article 15(4) (adversarial robustness) is partially covered through prompt injection and injection prevention checkpoints. The largest gaps are in AI-specific areas: adversarial ML testing, model-level attacks, transparency documentation, and formal risk management frameworks. These require specialised ML security tooling beyond static code analysis.
 
 ### AI-Specific Gaps
 
@@ -216,7 +216,7 @@ The following EU AI Act technical concerns are not covered:
 
 ### Recommended Supplementary Controls
 
-For comprehensive EU AI Act compliance, supplement security-audit-skill with:
+For comprehensive EU AI Act compliance, supplement killchain with:
 
 1. **Adversarial ML tools** (Adversarial Robustness Toolbox, Garak for LLMs) for Article 15(4) robustness testing
 2. **Model evaluation frameworks** (Inspect, lm-eval-harness) for accuracy and bias benchmarking

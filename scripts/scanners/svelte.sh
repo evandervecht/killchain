@@ -1,7 +1,7 @@
 #!/bin/bash
 # Svelte / SvelteKit Security Scanner Module
 # Scans Svelte and SvelteKit projects for common vulnerability patterns
-# Part of security-audit-skill modular scanner architecture
+# Part of killchain modular scanner architecture
 
 set -e
 

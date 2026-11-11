@@ -1,7 +1,7 @@
 #!/bin/bash
 # iOS Security Scanner Module
 # Scans iOS projects for common vulnerability patterns
-# Part of security-audit-skill multi-language scanning
+# Part of killchain multi-language scanning
 
 set -e
 

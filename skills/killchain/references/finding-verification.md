@@ -174,7 +174,7 @@ For a full audit, write every record and chain to one file:
 `findings` holds finding records in the shape above, all four verdicts. `chains` may be empty. Then build the dashboard:
 
 ```bash
-python3 scripts/dashboard.py findings.json    # writes dashboard.html next to it
+uv run scripts/dashboard.py findings.json     # writes dashboard.html next to it; without uv: python3 scripts/dashboard.py findings.json
 ```
 
 The script checks the file first (required fields, known verdicts, chain steps that exist and are not refuted) and stops with the errors if it is wrong. The dashboard is one HTML file with no external resources: verdict counts, attack chains step by step, and a filterable list of findings.

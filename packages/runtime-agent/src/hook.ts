@@ -2,8 +2,8 @@
  * Node.js Runtime Hook — intercepts HTTP request handling and wraps
  * dangerous sinks to detect taint flow.
  *
- * Usage: node --import @security-audit/runtime-agent ./app.js
- *   Or:  node --require @security-audit/runtime-agent/dist/hook-cjs.js ./app.js
+ * Usage: node --import @killchain/runtime-agent ./app.js
+ *   Or:  node --require @killchain/runtime-agent/dist/hook-cjs.js ./app.js
  *
  * Wraps:
  *   - child_process.exec/execSync (command injection sink)

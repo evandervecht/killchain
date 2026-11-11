@@ -1,7 +1,7 @@
 #!/bin/bash
 # GraphQL Security Scanner Module
 # Scans GraphQL schemas and Apollo/Yoga server configs for common vulnerability patterns
-# Part of security-audit-skill modular scanner architecture
+# Part of killchain modular scanner architecture
 
 set -e
 

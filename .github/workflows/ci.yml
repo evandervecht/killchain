@@ -34,3 +34,17 @@ jobs:
           uv run --python "$PY" scripts/test_eval_fixtures.py
           uv run --python "$PY" scripts/test_skill_scan.py
           uv run --python "$PY" scripts/test_dashboard.py
+          uv run --python "$PY" scripts/test_self_audit_fixes.py
+
+  packages:
+    name: Tests (TypeScript packages)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # core first: the servers depend on it through a file: link
+      - name: Build and test
+        run: |
+          for pkg in core runtime-agent mcp-server lsp-server; do
+            (cd "packages/$pkg" && npm ci --ignore-scripts && npm run build && npm test)
+          done

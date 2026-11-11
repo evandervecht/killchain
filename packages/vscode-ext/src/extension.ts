@@ -140,7 +140,7 @@ export function activate(context: vscode.ExtensionContext) {
 
         // Get reference from core
         try {
-          const { explainFinding } = await import("@security-audit/core");
+          const { explainFinding } = await import("@killchain/core");
           const skillRoot = path.resolve(context.extensionPath, "../..");
           const result = explainFinding(skillRoot, checkpointId);
 

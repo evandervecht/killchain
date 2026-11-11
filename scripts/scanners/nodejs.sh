@@ -1,7 +1,7 @@
 #!/bin/bash
 # Node.js Security Scanner Module
 # Scans Node.js/TypeScript projects for common vulnerability patterns
-# Part of the security-audit-skill scanner architecture
+# Part of the killchain scanner architecture
 
 set -e
 

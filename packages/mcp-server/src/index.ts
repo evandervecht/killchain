@@ -15,14 +15,14 @@ import {
   listReferences,
   getReference,
   lookupCvesForCheckpoint,
-} from "@security-audit/core";
+} from "@killchain/core";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 // Skill root is two levels up from packages/mcp-server/dist/
 const SKILL_ROOT = resolve(__dirname, "../../..");
 
 const server = new McpServer({
-  name: "security-audit",
+  name: "killchain",
   version: "0.1.0",
 });
 

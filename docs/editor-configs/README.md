@@ -9,7 +9,7 @@ Ready-to-use configuration snippets for all supported editors and AI IDEs.
 // ~/.claude/settings.json or project .claude/settings.json
 {
   "mcpServers": {
-    "security-audit": {
+    "killchain": {
       "command": "node",
       "args": ["/path/to/killchain/packages/mcp-server/dist/index.js"]
     }
@@ -22,7 +22,7 @@ Ready-to-use configuration snippets for all supported editors and AI IDEs.
 // .cursor/mcp.json
 {
   "mcpServers": {
-    "security-audit": {
+    "killchain": {
       "command": "node",
       "args": ["/path/to/killchain/packages/mcp-server/dist/index.js"]
     }
@@ -36,7 +36,7 @@ MCP support in Copilot uses the same VS Code MCP config:
 // .vscode/mcp.json
 {
   "servers": {
-    "security-audit": {
+    "killchain": {
       "command": "node",
       "args": ["/path/to/killchain/packages/mcp-server/dist/index.js"]
     }
@@ -49,7 +49,7 @@ MCP support in Copilot uses the same VS Code MCP config:
 // ~/.codeium/windsurf/mcp_config.json
 {
   "mcpServers": {
-    "security-audit": {
+    "killchain": {
       "command": "node",
       "args": ["/path/to/killchain/packages/mcp-server/dist/index.js"]
     }
@@ -62,7 +62,7 @@ MCP support in Copilot uses the same VS Code MCP config:
 // ~/.config/zed/settings.json
 {
   "context_servers": {
-    "security-audit": {
+    "killchain": {
       "command": {
         "path": "node",
         "args": ["/path/to/killchain/packages/mcp-server/dist/index.js"]
@@ -107,19 +107,19 @@ args = ["/path/to/killchain/packages/lsp-server/dist/index.js", "--stdio"]
 
 [[language]]
 name = "javascript"
-language-servers = ["typescript-language-server", "security-audit"]
+language-servers = ["typescript-language-server", "killchain"]
 
 [[language]]
 name = "python"
-language-servers = ["pylsp", "security-audit"]
+language-servers = ["pylsp", "killchain"]
 
 [[language]]
 name = "go"
-language-servers = ["gopls", "security-audit"]
+language-servers = ["gopls", "killchain"]
 
 [[language]]
 name = "rust"
-language-servers = ["rust-analyzer", "security-audit"]
+language-servers = ["rust-analyzer", "killchain"]
 
 # Repeat for other languages...
 ```
@@ -129,7 +129,7 @@ language-servers = ["rust-analyzer", "security-audit"]
 // Preferences > Package Settings > LSP > Settings
 {
   "clients": {
-    "security-audit": {
+    "killchain": {
       "enabled": true,
       "command": ["node", "/path/to/killchain/packages/lsp-server/dist/index.js", "--stdio"],
       "selector": "source.php | source.js | source.ts | source.python | source.java | source.cs | source.go | source.rust | source.ruby"
@@ -181,7 +181,7 @@ args = ["/path/to/killchain/packages/lsp-server/dist/index.js", "--stdio"]
 // ~/.config/kate/lspclient/settings.json
 {
   "servers": {
-    "security-audit": {
+    "killchain": {
       "command": ["node", "/path/to/killchain/packages/lsp-server/dist/index.js", "--stdio"],
       "languages": ["php", "javascript", "typescript", "python", "java", "csharp", "go", "rust", "ruby"]
     }

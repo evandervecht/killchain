@@ -29,7 +29,7 @@ Initialize the pnpm workspace with `packages/core` and `packages/mcp-server`. Th
 
 The MCP server wraps core with stdio transport using `@modelcontextprotocol/sdk`. It exposes three tools: `security_scan` (accepts a project path, detects languages, runs relevant checkpoints, returns findings array), `check_file` (accepts a file path, runs relevant checkpoints, returns findings), `explain_finding` (accepts a checkpoint ID, returns the reference documentation with vulnerable/secure examples). It also exposes reference files as MCP resources and two prompts (`security_audit`, `quick_check`).
 
-Installable via `npx @security-audit/mcp-server` or configurable in Claude Code / Cursor MCP settings.
+Installable via `npx @killchain/mcp-server` or configurable in Claude Code / Cursor MCP settings.
 
 ### Acceptance criteria
 
@@ -43,7 +43,7 @@ Installable via `npx @security-audit/mcp-server` or configurable in Claude Code 
 - [ ] MCP prompts return pre-built audit and quick-check prompts
 - [ ] Unit tests for core detection engine against eval fixtures
 - [ ] Integration tests for MCP tool invocations
-- [ ] `npx @security-audit/mcp-server` starts and responds to MCP initialize
+- [ ] `npx @killchain/mcp-server` starts and responds to MCP initialize
 
 ---
 
@@ -131,7 +131,7 @@ Report findings when untrusted input reaches a sink without sanitization. Output
 - [ ] Python hook detects tainted input reaching `subprocess.run`
 - [ ] Python hook detects tainted input reaching `pickle.loads`
 - [ ] Findings include source, sink, and taint path
-- [ ] Can be enabled via `node --require @security-audit/runtime-agent` or `python -m security_audit.runtime`
+- [ ] Can be enabled via `node --require @killchain/runtime-agent` or `python -m security_audit.runtime`
 - [ ] Tests against vulnerable sample applications
 
 ---

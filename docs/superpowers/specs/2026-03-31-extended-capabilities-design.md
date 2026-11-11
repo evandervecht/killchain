@@ -81,20 +81,20 @@ packages/
 - Runs regex patterns against file content
 - Returns structured findings: `{ checkpointId, severity, line, column, message, reference }`
 - Language detection via indicator files (reuses SKILL.md mapping)
-- TypeScript, published as `@security-audit/core`
+- TypeScript, published as `@killchain/core`
 
 **MCP server** (`packages/mcp-server`):
 - Transport: stdio (standard for local MCP servers)
 - Tools: `security_scan` (project scan), `check_file` (single file), `explain_finding` (reference lookup)
 - Resources: `references/{name}` (reference .md files)
 - Prompts: `security_audit` (full audit), `quick_check` (single file)
-- Published as `@security-audit/mcp-server`, installable via `npx @security-audit/mcp-server`
+- Published as `@killchain/mcp-server`, installable via `npx @killchain/mcp-server`
 
 **LSP server** (`packages/lsp-server`):
 - Diagnostics on file open/save
 - Severity mapping: checkpoint `error` -> LSP Error, `warning` -> LSP Warning
 - Code actions: "Show secure alternative", "View reference"
-- Published as `@security-audit/lsp-server`
+- Published as `@killchain/lsp-server`
 
 **VS Code extension** (`packages/vscode-ext`):
 - Bundles LSP server

@@ -1,6 +1,6 @@
 # SOC 2 Trust Services Criteria — Security Audit Checkpoint Mapping
 
-Mapping of AICPA SOC 2 Type II Trust Services Criteria (2017, with 2022 revisions) to the 408 security-audit-skill checkpoints. This reference enables auditors and engineering teams to demonstrate how automated code and runtime scanning satisfies SOC 2 control requirements.
+Mapping of AICPA SOC 2 Type II Trust Services Criteria (2017, with 2022 revisions) to the 408 killchain checkpoints. This reference enables auditors and engineering teams to demonstrate how automated code and runtime scanning satisfies SOC 2 control requirements.
 
 **Scope:** Common Criteria (CC) series — Security category. Availability, Processing Integrity, Confidentiality, and Privacy criteria are noted where checkpoint overlap exists but are not the primary focus.
 
@@ -190,7 +190,7 @@ The following SOC 2 controls have **no checkpoint coverage** and require purely 
 
 ### Using This Mapping for SOC 2 Audits
 
-1. **Evidence Collection:** Run the security-audit-skill scan and export results as JSON. Each finding maps to the checkpoint IDs listed above.
+1. **Evidence Collection:** Run the killchain scan and export results as JSON. Each finding maps to the checkpoint IDs listed above.
 
 2. **Control Matrices:** Use the checkpoint-to-control mapping to populate your SOC 2 control matrix. Each scan run provides timestamped evidence.
 
@@ -212,4 +212,4 @@ The following SOC 2 controls have **no checkpoint coverage** and require purely 
 
 | Date | Change | Author |
 |---|---|---|
-| 2026-03-31 | Initial SOC 2 mapping created with all CC, Confidentiality, Availability, Processing Integrity, and Privacy criteria | security-audit-skill |
+| 2026-03-31 | Initial SOC 2 mapping created with all CC, Confidentiality, Availability, Processing Integrity, and Privacy criteria | killchain |

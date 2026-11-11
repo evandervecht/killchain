@@ -82,7 +82,7 @@ npx skills add https://github.com/evandervecht/killchain --skill security-audit
 git clone https://github.com/evandervecht/killchain.git
 ```
 
-The skill needs `grep`, `jq` and the `gh` CLI. The dashboard needs Python 3.10 or newer.
+The skill needs `grep`, `jq` and the `gh` CLI. The dashboard needs `uv` or Python 3.10 or newer; the skill uses `uv` when it finds it.
 
 ## Use
 
@@ -112,7 +112,7 @@ Or run the scripts yourself:
 ./scripts/dependency-sandbox.sh pnpm-project ./pnpm-lock.yaml           # install dependencies in the sandbox
 ./skills/killchain/scripts/github-security-audit.sh owner/repo     # GitHub repository settings
 ./skills/killchain/scripts/skill-scan.sh ~/.claude/skills/<skill>  # vet an installed agent skill
-python3 ./skills/killchain/scripts/dashboard.py findings.json      # build dashboard.html
+uv run ./skills/killchain/scripts/dashboard.py findings.json       # build dashboard.html (python3 works too)
 ```
 
 ## Documentation

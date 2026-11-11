@@ -247,6 +247,10 @@ def _patch_sqlite3():
         sqlite3.Cursor.execute = patched_execute
     except ImportError:
         pass
+    except TypeError:
+        # sqlite3.Cursor is an immutable C type on current Python; without this the
+        # whole agent failed to import. SQL monitoring is unavailable there.
+        print("[security-audit] sqlite3 cannot be patched on this Python; SQL sinks are not monitored", file=sys.stderr)
 
 
 # === WSGI/ASGI Middleware for Flask/Django/FastAPI ===

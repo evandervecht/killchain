@@ -1,7 +1,7 @@
 #!/bin/bash
 # Elixir / Phoenix Security Scanner Module
 # Scans Elixir & Phoenix projects for common vulnerability patterns
-# Part of security-audit-skill modular scanner architecture
+# Part of killchain modular scanner architecture
 
 set -e
 

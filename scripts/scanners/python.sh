@@ -1,7 +1,7 @@
 #!/bin/bash
 # Python Security Scanner Module
 # Scans Python projects for common vulnerability patterns
-# Part of security-audit-skill Phase 4
+# Part of killchain Phase 4
 
 set -e
 

@@ -345,7 +345,7 @@ git clone https://github.com/someone/their-cool-skill.git /tmp/skill-to-audit
 # 2. Navigate to the skill directory
 cd /tmp/skill-to-audit
 
-# 3. Ask your AI agent (with security-audit-skill installed) to audit it
+# 3. Ask your AI agent (with killchain installed) to audit it
 ```
 
 Then ask:

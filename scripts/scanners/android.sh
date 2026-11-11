@@ -1,7 +1,7 @@
 #!/bin/bash
 # Android Security Scanner Module
 # Scans Android projects for common vulnerability patterns
-# Part of security-audit-skill multi-language scanning
+# Part of killchain multi-language scanning
 
 set -e
 

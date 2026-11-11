@@ -1,7 +1,7 @@
 #!/bin/bash
 # Java Security Scanner Module
 # Scans Java projects for common vulnerability patterns
-# Part of security-audit-skill multi-language scanning
+# Part of killchain multi-language scanning
 
 set -e
 

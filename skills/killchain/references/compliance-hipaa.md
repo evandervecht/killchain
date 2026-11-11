@@ -1,6 +1,6 @@
 # HIPAA Security Rule Compliance Mapping
 
-Maps HIPAA Security Rule (45 CFR Part 164, Subpart C) requirements to security-audit-skill checkpoints. Use this reference when auditing applications that create, receive, maintain, or transmit electronic protected health information (ePHI). Checkpoints prefixed with LIVE-* are runtime/dynamic checks; all others are static analysis checkpoints defined in checkpoints.yaml.
+Maps HIPAA Security Rule (45 CFR Part 164, Subpart C) requirements to killchain checkpoints. Use this reference when auditing applications that create, receive, maintain, or transmit electronic protected health information (ePHI). Checkpoints prefixed with LIVE-* are runtime/dynamic checks; all others are static analysis checkpoints defined in checkpoints.yaml.
 
 **Regulation:** HIPAA Security Rule (45 CFR 164.302-164.318)
 **Scope:** Technical safeguards, administrative safeguards (security-relevant), and organizational requirements mapped to 408 security checkpoints
@@ -275,7 +275,7 @@ Implement policies and procedures to prevent, detect, contain, and correct secur
 
 **Overall HIPAA Security Rule coverage: ~55% of technical safeguards, ~25% of administrative safeguards.**
 
-The security-audit-skill provides strong coverage of the Technical Safeguards (164.312), particularly for access control, integrity, and transmission security. Administrative safeguards that require organizational processes (workforce security, contingency planning, incident response) are largely out of scope.
+The killchain provides strong coverage of the Technical Safeguards (164.312), particularly for access control, integrity, and transmission security. Administrative safeguards that require organizational processes (workforce security, contingency planning, incident response) are largely out of scope.
 
 ### Healthcare-Specific Gaps
 
@@ -289,7 +289,7 @@ The following healthcare-specific security concerns are not covered by current c
 
 ### Recommended Supplementary Controls
 
-For full HIPAA Security Rule compliance, supplement security-audit-skill with:
+For full HIPAA Security Rule compliance, supplement killchain with:
 
 1. **Identity governance platform** (Okta, Azure AD) for 164.312(a) and 164.308(a)(3-4)
 2. **SIEM/log management** (Splunk, Datadog) for 164.312(b)

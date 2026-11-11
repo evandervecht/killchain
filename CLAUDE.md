@@ -67,6 +67,8 @@ Tests run on push/PR to main:
 - `test_eval_fixtures.py` — regex fixture tests (552 tests)
 - `test_skill_scan.py` — agent skill scan pattern tests
 - `test_dashboard.py` — findings dashboard generator tests
+- `test_self_audit_fixes.py` — regression tests for the shell, sandbox and Python fixes from the self-audit
+- `npm test` in `packages/{core,runtime-agent,mcp-server,lsp-server}` — regression tests for the TypeScript fixes
 
 ## GitHub Issues
 

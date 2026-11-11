@@ -1,7 +1,7 @@
 #!/bin/bash
 # Kubernetes Security Scanner Module
 # Scans Kubernetes manifests (and Helm chart templates) for common misconfigurations
-# Part of security-audit-skill modular scanner architecture
+# Part of killchain modular scanner architecture
 
 set -e
 

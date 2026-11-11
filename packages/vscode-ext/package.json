@@ -94,7 +94,7 @@
   },
   "dependencies": {
     "vscode-languageclient": "^9.0.1",
-    "@security-audit/core": "file:../core"
+    "@killchain/core": "file:../core"
   },
   "devDependencies": {
     "@types/vscode": "^1.85.0",

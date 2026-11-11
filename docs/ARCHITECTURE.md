@@ -2,7 +2,7 @@
 
 ## Overview
 
-The security-audit-skill is an AI agent skill that provides security audit capabilities following the [Agent Skills](https://agentskills.io) open standard. It delivers vulnerability detection, risk scoring, and secure coding guidance through skill definitions, automated checkpoints, and reference documentation.
+The killchain is an AI agent skill that provides security audit capabilities following the [Agent Skills](https://agentskills.io) open standard. It delivers vulnerability detection, risk scoring, and secure coding guidance through skill definitions, automated checkpoints, and reference documentation.
 
 ## Components
 

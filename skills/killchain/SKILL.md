@@ -2,12 +2,12 @@
 name: killchain
 description: "Use for security audits and any code security review: finding vulnerabilities (OWASP Top 10, CWE Top 25, XSS/SQLi/SSRF/XXE/CSRF), CVSS v4.0 scoring, leaked secrets, dependency CVEs, IaC (Dockerfile/Terraform), Kubernetes and GitHub Actions, API and GraphQL, frontend, cloud and mobile, and AI agent/LLM security (OWASP LLM Top 10). Runs parallel hunter and verifier subagents, links findings into attack chains and builds an HTML findings dashboard. Covers 15 languages and 26 frameworks. Modes: /killchain (current project), /killchain target <git url>, /killchain isitdeadyet (dependency health)."
 license: "MIT. See LICENSE-MIT"
-compatibility: "Requires grep, jq, gh CLI. Python 3.10+ for the dashboard."
+compatibility: "Requires grep, jq, gh CLI. uv or Python 3.10+ for the dashboard."
 metadata:
   author: E van der Vecht
   version: "3.4.0"
   repository: https://github.com/evandervecht/killchain
-allowed-tools: Bash(grep:*) Bash(jq:*) Bash(gh:*) Bash(python3:*) Read Glob Grep
+allowed-tools: Bash(grep:*) Bash(jq:*) Bash(gh:*) Bash(uv:*) Bash(python3:*) Read Glob Grep
 ---
 
 # Security Audit Skill
@@ -78,8 +78,11 @@ All files are in `references/`. Language, framework, cloud, CMS and mobile refer
 ./skills/killchain/scripts/skill-scan.sh ~/.claude/skills/<skill>
 
 # Findings dashboard (one self-contained HTML file, no network access)
-python3 ./skills/killchain/scripts/dashboard.py findings.json
+uv run ./skills/killchain/scripts/dashboard.py findings.json
 ```
+
+**Python.** Check for `uv` first (`command -v uv`). If it is installed, run every Python script with `uv run <script>`: the scripts carry their own interpreter and dependency metadata. Only without `uv`, use `python3 <script>`.
+
 
 ---
 

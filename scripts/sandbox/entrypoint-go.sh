@@ -53,7 +53,7 @@ sbom = {
     'version': 1,
     'metadata': {
         'timestamp': datetime.datetime.utcnow().isoformat() + 'Z',
-        'tools': [{'vendor': 'security-audit-skill', 'name': 'dependency-sandbox', 'version': '1.0.0'}],
+        'tools': [{'vendor': 'killchain', 'name': 'dependency-sandbox', 'version': '1.0.0'}],
     },
     'components': components
 }

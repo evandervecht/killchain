@@ -1,6 +1,6 @@
 # ISO 27001:2022 Annex A Controls — Security Audit Checkpoint Mapping
 
-Mapping of ISO/IEC 27001:2022 Annex A controls to the 408 security-audit-skill checkpoints. This reference enables organizations pursuing or maintaining ISO 27001 certification to demonstrate how automated code and runtime scanning contributes to control implementation.
+Mapping of ISO/IEC 27001:2022 Annex A controls to the 408 killchain checkpoints. This reference enables organizations pursuing or maintaining ISO 27001 certification to demonstrate how automated code and runtime scanning contributes to control implementation.
 
 **Standard:** ISO/IEC 27001:2022 (third edition, published October 2022)
 **Annex A Structure:** 4 themes, 93 controls (reduced from 114 in 2013 revision)
@@ -242,4 +242,4 @@ All 14 physical controls except A.7.9 (limited mobile device overlap) have no co
 
 | Date | Change | Author |
 |---|---|---|
-| 2026-03-31 | Initial ISO 27001:2022 Annex A mapping created covering all 93 controls across 4 themes | security-audit-skill |
+| 2026-03-31 | Initial ISO 27001:2022 Annex A mapping created covering all 93 controls across 4 themes | killchain |
