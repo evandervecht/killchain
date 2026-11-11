@@ -41,6 +41,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      # `node --test "test/*.test.mjs"` needs Node 21+ for the glob; pin it so the runner default does not matter
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 22
 
       # core first: the servers depend on it through a file: link
       - name: Build and test

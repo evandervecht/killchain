@@ -7,7 +7,7 @@ metadata:
   author: E van der Vecht
   version: "3.4.0"
   repository: https://github.com/evandervecht/killchain
-allowed-tools: Bash(grep:*) Bash(jq:*) Bash(gh:*) Bash(uv:*) Bash(python3:*) Read Glob Grep
+allowed-tools: Bash(grep:*) Bash(jq:*) Bash(gh:*) Bash(command -v uv) Bash(git clone --depth 1 -c core.symlinks=false -- *) Bash(uv run *scripts/dashboard.py *) Bash(python3 *scripts/dashboard.py *) Read Glob Grep
 ---
 
 # Security Audit Skill
@@ -81,7 +81,7 @@ All files are in `references/`. Language, framework, cloud, CMS and mobile refer
 uv run ./skills/killchain/scripts/dashboard.py findings.json
 ```
 
-**Python.** Check for `uv` first (`command -v uv`). If it is installed, run every Python script with `uv run <script>`: the scripts carry their own interpreter and dependency metadata. Only without `uv`, use `python3 <script>`.
+**Python.** The only Python this skill runs is `scripts/dashboard.py`. Check for `uv` first (`command -v uv`). If it is installed, run `uv run <skill>/scripts/dashboard.py findings.json`: the script carries its own interpreter and dependency metadata. Only without `uv`, use `python3 <skill>/scripts/dashboard.py findings.json`. Never run other Python, `python3 -c`, or `uv run --with <package>`.
 
 
 ---

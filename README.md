@@ -73,7 +73,7 @@ It is an [Agent Skill](https://agentskills.io), so it works in Claude Code, Curs
 **With the Skills CLI:**
 
 ```sh
-npx skills add https://github.com/evandervecht/killchain --skill security-audit
+npx skills add https://github.com/evandervecht/killchain --skill killchain
 ```
 
 **From source:**

@@ -71,11 +71,18 @@ def test_scanners_cap_exit_status(tmp):  # KC-S8
 def test_audits_ignore_project_config(tmp):  # KC-S5
     text = "".join(f.read_text(encoding="utf-8") for f in SCANNERS.glob("*.sh"))
     text += (ROOT / "skills/killchain/scripts/security-audit.sh").read_text(encoding="utf-8")
-    for line in re.findall(r".*&& npm audit .*", text):
+    # An empty match list would pass the loops below, so each pattern must match at least once.
+    npm = re.findall(r".*&& npm audit .*", text)
+    assert npm, "no npm audit command found in the scanners"
+    for line in npm:
         assert "--registry=https://registry.npmjs.org/" in line, line
-    for line in re.findall(r".*&& composer audit.*", text):
+    composer = re.findall(r".*&& composer audit.*", text)
+    assert composer, "no composer audit command found in the scanners"
+    for line in composer:
         assert "--no-plugins --no-scripts" in line, line
-    for line in re.findall(r".*&& .*govulncheck \./.*", text):
+    govulncheck = re.findall(r".*&& .*govulncheck \./.*", text)
+    assert govulncheck, "no govulncheck command found in the scanners"
+    for line in govulncheck:
         assert "GOTOOLCHAIN=local" in line, line
 
 
