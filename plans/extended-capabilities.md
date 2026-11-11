@@ -1,6 +1,6 @@
 # Plan: Extended Capabilities
 
-> Source PRD: [evandervecht/security-audit-skill#4](https://github.com/evandervecht/security-audit-skill/issues/4)
+> Source PRD: [evandervecht/killchain#4](https://github.com/evandervecht/killchain/issues/4)
 > Design Spec: `docs/superpowers/specs/2026-03-31-extended-capabilities-design.md`
 
 ## Architectural decisions

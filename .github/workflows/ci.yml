@@ -33,3 +33,4 @@ jobs:
           uv run --python "$PY" scripts/validate_checkpoints.py
           uv run --python "$PY" scripts/test_eval_fixtures.py
           uv run --python "$PY" scripts/test_skill_scan.py
+          uv run --python "$PY" scripts/test_dashboard.py

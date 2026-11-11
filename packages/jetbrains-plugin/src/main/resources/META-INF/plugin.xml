@@ -2,7 +2,7 @@
     <id>com.securityaudit.plugin</id>
     <name>Security Audit</name>
     <version>0.1.0</version>
-    <vendor email="evan@evandervecht.com" url="https://github.com/evandervecht/security-audit-skill">
+    <vendor email="evan@evandervecht.com" url="https://github.com/evandervecht/killchain">
         E van der Vecht
     </vendor>
 

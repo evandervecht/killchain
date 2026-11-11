@@ -14,14 +14,14 @@ this project, please report it responsibly.
 
 ### Preferred Method: GitHub Private Vulnerability Reporting
 
-Report vulnerabilities through [GitHub Private Vulnerability Reporting](https://github.com/evandervecht/security-audit-skill/security/advisories/new).
+Report vulnerabilities through [GitHub Private Vulnerability Reporting](https://github.com/evandervecht/killchain/security/advisories/new).
 This creates a private advisory visible only to repository maintainers until a
 fix is available.
 
 ### Security Contact
 
 For sensitive disclosures or if GitHub PVR is unavailable, open an issue on
-[GitHub](https://github.com/evandervecht/security-audit-skill/issues).
+[GitHub](https://github.com/evandervecht/killchain/issues).
 
 ## Response SLAs
 
@@ -125,4 +125,4 @@ If you report a valid vulnerability, we will:
 ## Questions
 
 For non-vulnerability security questions about this project, open a
-[GitHub Discussion](https://github.com/evandervecht/security-audit-skill/discussions).
+[GitHub Discussion](https://github.com/evandervecht/killchain/discussions).

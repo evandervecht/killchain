@@ -11,7 +11,7 @@ Ready-to-use configuration snippets for all supported editors and AI IDEs.
   "mcpServers": {
     "security-audit": {
       "command": "node",
-      "args": ["/path/to/security-audit-skill/packages/mcp-server/dist/index.js"]
+      "args": ["/path/to/killchain/packages/mcp-server/dist/index.js"]
     }
   }
 }
@@ -24,7 +24,7 @@ Ready-to-use configuration snippets for all supported editors and AI IDEs.
   "mcpServers": {
     "security-audit": {
       "command": "node",
-      "args": ["/path/to/security-audit-skill/packages/mcp-server/dist/index.js"]
+      "args": ["/path/to/killchain/packages/mcp-server/dist/index.js"]
     }
   }
 }
@@ -38,7 +38,7 @@ MCP support in Copilot uses the same VS Code MCP config:
   "servers": {
     "security-audit": {
       "command": "node",
-      "args": ["/path/to/security-audit-skill/packages/mcp-server/dist/index.js"]
+      "args": ["/path/to/killchain/packages/mcp-server/dist/index.js"]
     }
   }
 }
@@ -51,7 +51,7 @@ MCP support in Copilot uses the same VS Code MCP config:
   "mcpServers": {
     "security-audit": {
       "command": "node",
-      "args": ["/path/to/security-audit-skill/packages/mcp-server/dist/index.js"]
+      "args": ["/path/to/killchain/packages/mcp-server/dist/index.js"]
     }
   }
 }
@@ -65,7 +65,7 @@ MCP support in Copilot uses the same VS Code MCP config:
     "security-audit": {
       "command": {
         "path": "node",
-        "args": ["/path/to/security-audit-skill/packages/mcp-server/dist/index.js"]
+        "args": ["/path/to/killchain/packages/mcp-server/dist/index.js"]
       }
     }
   }
@@ -84,7 +84,7 @@ local configs = require('lspconfig.configs')
 
 configs.security_audit = {
   default_config = {
-    cmd = { 'node', '/path/to/security-audit-skill/packages/lsp-server/dist/index.js', '--stdio' },
+    cmd = { 'node', '/path/to/killchain/packages/lsp-server/dist/index.js', '--stdio' },
     filetypes = {
       'php', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact',
       'python', 'java', 'cs', 'go', 'rust', 'ruby', 'vue', 'swift', 'kotlin',
@@ -103,7 +103,7 @@ lspconfig.security_audit.setup({})
 # ~/.config/helix/languages.toml
 [language-server.security-audit]
 command = "node"
-args = ["/path/to/security-audit-skill/packages/lsp-server/dist/index.js", "--stdio"]
+args = ["/path/to/killchain/packages/lsp-server/dist/index.js", "--stdio"]
 
 [[language]]
 name = "javascript"
@@ -131,7 +131,7 @@ language-servers = ["rust-analyzer", "security-audit"]
   "clients": {
     "security-audit": {
       "enabled": true,
-      "command": ["node", "/path/to/security-audit-skill/packages/lsp-server/dist/index.js", "--stdio"],
+      "command": ["node", "/path/to/killchain/packages/lsp-server/dist/index.js", "--stdio"],
       "selector": "source.php | source.js | source.ts | source.python | source.java | source.cs | source.go | source.rust | source.ruby"
     }
   }
@@ -145,7 +145,7 @@ language-servers = ["rust-analyzer", "security-audit"]
   (lsp-register-client
    (make-lsp-client
     :new-connection (lsp-stdio-connection
-                     '("node" "/path/to/security-audit-skill/packages/lsp-server/dist/index.js" "--stdio"))
+                     '("node" "/path/to/killchain/packages/lsp-server/dist/index.js" "--stdio"))
     :activation-fn (lsp-activate-on "php" "javascript" "typescript" "python" "java" "csharp" "go" "rust" "ruby")
     :server-id 'security-audit)))
 ```
@@ -155,7 +155,7 @@ language-servers = ["rust-analyzer", "security-audit"]
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
                '((php-mode js-mode typescript-mode python-mode java-mode csharp-mode go-mode rust-mode ruby-mode)
-                 . ("node" "/path/to/security-audit-skill/packages/lsp-server/dist/index.js" "--stdio"))))
+                 . ("node" "/path/to/killchain/packages/lsp-server/dist/index.js" "--stdio"))))
 ```
 
 ### Kakoune (via kak-lsp)
@@ -165,7 +165,7 @@ language-servers = ["rust-analyzer", "security-audit"]
 filetypes = ["php", "javascript", "typescript", "python", "java", "csharp", "go", "rust", "ruby"]
 roots = [".git", "package.json", "go.mod", "Cargo.toml"]
 command = "node"
-args = ["/path/to/security-audit-skill/packages/lsp-server/dist/index.js", "--stdio"]
+args = ["/path/to/killchain/packages/lsp-server/dist/index.js", "--stdio"]
 ```
 
 ### Eclipse (via LSP4E)
@@ -173,7 +173,7 @@ args = ["/path/to/security-audit-skill/packages/lsp-server/dist/index.js", "--st
 2. Go to: Window → Preferences → Language Servers
 3. Add new server:
    - Program: `node`
-   - Arguments: `/path/to/security-audit-skill/packages/lsp-server/dist/index.js --stdio`
+   - Arguments: `/path/to/killchain/packages/lsp-server/dist/index.js --stdio`
    - File types: `*.php, *.js, *.ts, *.py, *.java, *.cs, *.go, *.rs, *.rb`
 
 ### Kate / KTextEditor
@@ -182,7 +182,7 @@ args = ["/path/to/security-audit-skill/packages/lsp-server/dist/index.js", "--st
 {
   "servers": {
     "security-audit": {
-      "command": ["node", "/path/to/security-audit-skill/packages/lsp-server/dist/index.js", "--stdio"],
+      "command": ["node", "/path/to/killchain/packages/lsp-server/dist/index.js", "--stdio"],
       "languages": ["php", "javascript", "typescript", "python", "java", "csharp", "go", "rust", "ruby"]
     }
   }

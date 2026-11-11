@@ -1,4 +1,4 @@
-# CLAUDE.md — Security Audit Skill
+# CLAUDE.md — Killchain
 
 ## Project Overview
 
@@ -65,6 +65,8 @@ Tests run on push/PR to main:
 - `test_risky_patterns.py` — hook pattern tests
 - `validate_checkpoints.py` — checkpoint YAML + namespace validation
 - `test_eval_fixtures.py` — regex fixture tests (552 tests)
+- `test_skill_scan.py` — agent skill scan pattern tests
+- `test_dashboard.py` — findings dashboard generator tests
 
 ## GitHub Issues
 

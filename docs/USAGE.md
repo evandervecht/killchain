@@ -1,4 +1,4 @@
-# Security Audit Skill — Usage Guide
+# Killchain — Usage Guide
 
 How to apply the security audit skill to any project. Supports 9 languages, 18 frameworks, 3 cloud providers, 4 CMS platforms, 2 mobile SDKs, with 408 automated checkpoints, runtime analysis, CVE correlation, and compliance mapping.
 
@@ -11,13 +11,13 @@ How to apply the security audit skill to any project. Supports 9 languages, 18 f
 Install the skill as a plugin from GitHub:
 
 ```bash
-claude plugin add evandervecht/security-audit-skill
+claude plugin add evandervecht/killchain
 ```
 
 Or clone it locally and point to it:
 
 ```bash
-git clone https://github.com/evandervecht/security-audit-skill.git
+git clone https://github.com/evandervecht/killchain.git
 # In your project, reference the skill directory in .claude/settings.json
 ```
 

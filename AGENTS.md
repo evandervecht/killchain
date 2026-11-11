@@ -1,11 +1,11 @@
-# Security Audit Skill
+# Killchain
 
 Security audit patterns (OWASP Top 10, CWE Top 25, CVSS v4.0) and deep PHP/TYPO3 code scanning with 80+ checkpoints.
 
 ## Repo Structure
 
 ```
-security-audit-skill/
+killchain/
 ├── skills/security-audit/       # Skill definition, checkpoints, scripts, references
 │   ├── SKILL.md                 # Skill metadata and trigger patterns
 │   ├── checkpoints.yaml         # 80+ automated security checkpoints

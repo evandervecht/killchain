@@ -23,7 +23,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/evandervecht/security-audit-skill"
+    "url": "https://github.com/evandervecht/killchain"
   },
   "icon": "icon.png",
   "activationEvents": [
