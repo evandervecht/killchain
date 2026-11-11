@@ -1,7 +1,7 @@
 #!/bin/bash
 # Kubernetes Security Scanner Module
 # Scans Kubernetes manifests (and Helm chart templates) for common misconfigurations
-# Part of security-audit-skill modular scanner architecture
+# Part of killchain modular scanner architecture
 
 set -e
 
@@ -12,7 +12,7 @@ WARNINGS=0
 # Auto-detect Kubernetes manifest directories
 SCAN_DIRS=()
 for dir in k8s kubernetes deploy deployment manifests charts helm templates; do
-    if [[ -d "$PROJECT_DIR/$dir" ]]; then
+    if [[ -d "$PROJECT_DIR/$dir" && ! -L "$PROJECT_DIR/$dir" ]]; then
         SCAN_DIRS+=("$PROJECT_DIR/$dir")
     fi
 done
@@ -133,4 +133,4 @@ echo "Errors:   $ERRORS"
 echo "Warnings: $WARNINGS"
 echo "Total:    $((ERRORS + WARNINGS))"
 
-exit $ERRORS
+exit $(( ERRORS > 255 ? 255 : ERRORS ))

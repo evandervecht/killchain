@@ -12,7 +12,7 @@ WARNINGS=0
 # Auto-detect Go source directories
 SCAN_DIRS=()
 for dir in . cmd pkg internal api; do
-    if [[ -d "$PROJECT_DIR/$dir" ]]; then
+    if [[ -d "$PROJECT_DIR/$dir" && ! -L "$PROJECT_DIR/$dir" ]]; then
         SCAN_DIRS+=("$PROJECT_DIR/$dir")
     fi
 done
@@ -193,7 +193,7 @@ echo ""
 echo "=== Checking Dependencies ==="
 if [[ -f "$PROJECT_DIR/go.sum" ]]; then
     if command -v govulncheck &> /dev/null; then
-        VULN_OUTPUT=$(cd "$PROJECT_DIR" && govulncheck ./... 2>&1 || true)
+        VULN_OUTPUT=$(cd "$PROJECT_DIR" && GOTOOLCHAIN=local govulncheck ./... 2>&1 || true)
         if echo "$VULN_OUTPUT" | grep -q "Vulnerability"; then
             echo "WARNING: Vulnerable dependencies found:"
             echo "$VULN_OUTPUT" | head -20
@@ -215,4 +215,4 @@ echo "Errors: $ERRORS"
 echo "Warnings: $WARNINGS"
 
 # Exit with error count for dispatcher to aggregate
-exit "$ERRORS"
+exit $(( ERRORS > 255 ? 255 : ERRORS ))

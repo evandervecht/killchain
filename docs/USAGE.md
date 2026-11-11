@@ -1,4 +1,4 @@
-# Security Audit Skill — Usage Guide
+# Killchain — Usage Guide
 
 How to apply the security audit skill to any project. Supports 9 languages, 18 frameworks, 3 cloud providers, 4 CMS platforms, 2 mobile SDKs, with 408 automated checkpoints, runtime analysis, CVE correlation, and compliance mapping.
 
@@ -11,19 +11,19 @@ How to apply the security audit skill to any project. Supports 9 languages, 18 f
 Install the skill as a plugin from GitHub:
 
 ```bash
-claude plugin add evandervecht/security-audit-skill
+claude plugin add evandervecht/killchain
 ```
 
 Or clone it locally and point to it:
 
 ```bash
-git clone https://github.com/evandervecht/security-audit-skill.git
+git clone https://github.com/evandervecht/killchain.git
 # In your project, reference the skill directory in .claude/settings.json
 ```
 
 ### Other AI Agents (Cursor, GitHub Copilot, etc.)
 
-Copy the `skills/security-audit/` directory into your agent's skill path. The skill is compatible with any Agent Skills-compatible platform.
+Copy the `skills/killchain/` directory into your agent's skill path. The skill is compatible with any Agent Skills-compatible platform.
 
 ---
 
@@ -57,7 +57,7 @@ The dispatcher auto-detects languages via indicator files (`package.json`, `requ
 ### 2. Audit a GitHub Repository's Security Settings
 
 ```bash
-./skills/security-audit/scripts/github-security-audit.sh owner/repo
+./skills/killchain/scripts/github-security-audit.sh owner/repo
 ```
 
 This checks: secret scanning, branch protection, Dependabot, CodeQL, workflow permissions, SECURITY.md, and more.
@@ -345,7 +345,7 @@ git clone https://github.com/someone/their-cool-skill.git /tmp/skill-to-audit
 # 2. Navigate to the skill directory
 cd /tmp/skill-to-audit
 
-# 3. Ask your AI agent (with security-audit-skill installed) to audit it
+# 3. Ask your AI agent (with killchain installed) to audit it
 ```
 
 Then ask:
@@ -446,7 +446,7 @@ The audit would flag:
 
 ## Reference Docs
 
-All 64 reference docs are in `skills/security-audit/references/`.
+All 64 reference docs are in `skills/killchain/references/`.
 
 **Standards & Scoring:**
 

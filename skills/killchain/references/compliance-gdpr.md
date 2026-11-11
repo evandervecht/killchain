@@ -1,6 +1,6 @@
 # GDPR Compliance Mapping (Security of Processing)
 
-Maps GDPR Articles 25, 32, and 35 to security-audit-skill checkpoints. Use this reference when auditing applications that process personal data of EU/EEA data subjects. Checkpoints prefixed with LIVE-* are runtime/dynamic checks; all others are static analysis checkpoints defined in checkpoints.yaml.
+Maps GDPR Articles 25, 32, and 35 to killchain checkpoints. Use this reference when auditing applications that process personal data of EU/EEA data subjects. Checkpoints prefixed with LIVE-* are runtime/dynamic checks; all others are static analysis checkpoints defined in checkpoints.yaml.
 
 **Regulation:** General Data Protection Regulation (EU) 2016/679
 **Focus:** Article 32 (Security of Processing), Article 25 (Data Protection by Design and by Default), Article 35 (Data Protection Impact Assessment)
@@ -146,7 +146,7 @@ Article 25 requires that data protection principles are implemented from the out
 
 ## Article 35 -- Data Protection Impact Assessment (DPIA)
 
-Article 35 requires a DPIA when processing is likely to result in a high risk to the rights and freedoms of natural persons. The security-audit-skill supports DPIA by providing automated risk identification and scoring.
+Article 35 requires a DPIA when processing is likely to result in a high risk to the rights and freedoms of natural persons. The killchain supports DPIA by providing automated risk identification and scoring.
 
 ### DPIA Support Through Automated Risk Assessment
 
@@ -161,7 +161,7 @@ Article 35 requires a DPIA when processing is likely to result in a high risk to
 
 ### Risk Scoring for DPIA
 
-The security-audit-skill produces findings with standardised severity levels that map to DPIA risk assessment:
+The killchain produces findings with standardised severity levels that map to DPIA risk assessment:
 
 | Finding Severity | CVSS Score Range | DPIA Risk Level | Example Checkpoints |
 |---|---|---|---|
@@ -195,7 +195,7 @@ The security-audit-skill produces findings with standardised severity levels tha
 
 **Overall GDPR Article 32 coverage: ~60% of technical security measures.**
 
-The security-audit-skill excels at confidentiality and integrity controls (Art. 32(1)(b)) with comprehensive coverage of injection prevention, access control, and secrets management. The largest gaps are in availability/resilience (Art. 32(1)(c)) and data-protection-specific concerns like pseudonymisation, data minimisation, and purpose limitation.
+The killchain excels at confidentiality and integrity controls (Art. 32(1)(b)) with comprehensive coverage of injection prevention, access control, and secrets management. The largest gaps are in availability/resilience (Art. 32(1)(c)) and data-protection-specific concerns like pseudonymisation, data minimisation, and purpose limitation.
 
 ### Privacy-Specific Gaps
 
@@ -210,7 +210,7 @@ The following GDPR-specific technical concerns are not covered:
 
 ### Recommended Supplementary Controls
 
-For comprehensive GDPR Article 32 compliance, supplement security-audit-skill with:
+For comprehensive GDPR Article 32 compliance, supplement killchain with:
 
 1. **PII scanning tools** (Amazon Macie, Google DLP API) for personal data detection
 2. **Consent management platform** (OneTrust, Cookiebot) for Art. 7 compliance

@@ -8,14 +8,48 @@ Pattern scanners and single-pass reviews over-report. A `grep` hit on `eval(` sa
 
 ## Pipeline
 
-1. **Collect.** Gather candidates from `scripts/security-audit-dispatcher.sh`, mechanical checkpoints, `llm_reviews` prompts and manual review.
+1. **Collect.** Gather candidates from `scripts/security-audit-dispatcher.sh`, mechanical checkpoints, `llm_reviews` prompts and the hunters (see Multi-agent run).
 2. **Triage (mechanical, no LLM).** Drop or group before spending tokens:
    - Hits in test fixtures, eval directories, vendored code, generated code, docs and examples. List them as excluded, do not verify.
    - Duplicates: same sink, same root cause. Keep one candidate and list the other locations.
    - Pure hygiene hits (missing header, unpinned action) that need no data-flow argument. Report them as `hardening` directly.
 3. **Verify.** Each remaining candidate goes to a verifier (see below).
-4. **Score.** CVSS (`cvss-scoring.md`) only for `confirmed` findings. `unproven` findings get no score.
-5. **Report.** Group by verdict. Confirmed first.
+4. **Score.** CVSS (`cvss-scoring.md`) and a severity only for `confirmed` findings. `unproven` findings get no score.
+5. **Chain.** Link verified findings into attack chains (see Attack chains).
+6. **Report.** Chains first, then group by verdict. Confirmed first.
+7. **Dashboard.** Write `findings.json` and build `dashboard.html` (see findings.json and dashboard).
+
+## Multi-agent run
+
+Use this when the agent can start subagents. One parent coordinates; it is the only one that writes files and the only one that sees every result.
+
+1. **Split into areas.** One area per service or detected stack, plus one each for access control, secrets and dependencies, and IaC/CI where the project has them. An area is a set of paths plus the references that match it. Keep it to eight hunters at most; merge small areas.
+2. **Hunt in parallel.** Start all hunters in one batch with the hunter prompt below. Give each its own paths, the scanner and checkpoint hits inside those paths, and the entry points found during detection. Hunters do not see each other's results.
+3. **Triage** in the parent. Hunters overlap; merge candidates with the same sink and root cause.
+4. **Verify in parallel.** One fresh verifier per candidate (low severity: up to five per verifier, same file). A verifier never checks a candidate from its own context, and gets the claim only.
+5. **Chain, report and build the dashboard** in the parent.
+
+Without subagents, do the same steps in sequence: finish hunting every area before verifying anything.
+
+```text
+You are hunting for security vulnerabilities in one area of a project. Report candidates only;
+someone else will verify them, so do not argue for them.
+
+Area: {name}
+Paths: {paths}
+References to read: {reference files}
+Scanner and checkpoint hits in these paths: {hits}
+Entry points and callers: {from detection}
+
+Read the code, not only the hits. Follow input from each entry point to where it is used.
+Do not edit files or run the project.
+
+Return a list, one entry per candidate:
+- class: bug class and CWE
+- sink: file:line
+- source: where attacker input is said to come from
+- checkpoint: the checkpoint id, if one matched
+```
 
 ## Verdicts
 
@@ -85,6 +119,7 @@ Record each verified candidate in this shape, in the report or as JSON next to i
   "class": "Command injection",
   "cwe": "CWE-78",
   "verdict": "confirmed",
+  "severity": "high",
   "location": "app/tasks/export.py:88",
   "trace": [
     "app/api/export.py:41 request.args['fmt'] read into fmt",
@@ -98,7 +133,53 @@ Record each verified candidate in this shape, in the report or as JSON next to i
 }
 ```
 
+`severity` is `critical`, `high`, `medium` or `low`, taken from the CVSS score (9.0+, 7.0+, 4.0+, below 4.0). Only `confirmed` records have one.
+
 For `refuted` and `hardening`, keep `id`, `class`, `location`, `verdict` and `defeated_by`. For `unproven`, keep `id`, `class`, `location`, `verdict` and `open_fact`.
+
+## Attack chains
+
+Single findings understate risk when they combine: a medium read bug that exposes a field, plus a medium stored XSS in that field, can be an account takeover. After verification, the parent looks for those links.
+
+- **Build chains only from verified records.** `confirmed`, `unproven` and `hardening` records can be steps. `refuted` records and raw candidates cannot.
+- **Every link must hold.** Step N's impact has to give the attacker exactly what step N+1's preconditions require. If you cannot state that in one sentence, there is no chain.
+- **At least two steps.** A single finding is not a chain.
+- **Severity is for the end result,** set like a finding's severity. The CVSS scores of the individual findings do not change.
+- **A chain is only as proven as its weakest step.** If any step is not `confirmed`, the dashboard labels the chain `potential`.
+
+```json
+{
+  "id": "CH-1",
+  "title": "Customer to admin session",
+  "severity": "critical",
+  "steps": ["SA-API-01-001", "SA-JS-06-001"],
+  "impact": "Any customer takes over an admin session"
+}
+```
+
+## findings.json and dashboard
+
+For a full audit, write every record and chain to one file:
+
+```json
+{
+  "target": "acme-shop",
+  "date": "2026-11-11",
+  "commit": "8560c26",
+  "findings": [],
+  "chains": []
+}
+```
+
+`findings` holds finding records in the shape above, all four verdicts. `chains` may be empty. Then build the dashboard:
+
+```bash
+uv run scripts/dashboard.py findings.json     # writes dashboard.html next to it; without uv: python3 scripts/dashboard.py findings.json
+```
+
+The script checks the file first (required fields, known verdicts, chain steps that exist and are not refuted) and stops with the errors if it is wrong. The dashboard is one HTML file with no external resources: verdict counts, attack chains step by step, and a filterable list of findings.
+
+Write both files to `~/security-audit-reports/<project>/`. Put them inside the audited repository only when the user asks, and then remind them not to commit a list of open vulnerabilities.
 
 ## Cost control
 

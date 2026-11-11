@@ -167,12 +167,22 @@ Supported ecosystems: `npm`, `pip`, `go`, `rust`, `dotnet`.
 | 1 | Suspicious — one or more findings |
 | 2 | Usage error or Docker not available |
 
+## Known limitations
+
+Found by auditing this repository with the skill itself. Until they are fixed, read a CLEAN result as "nothing was observed", not as proof the package is safe.
+
+- **The trace log can be tampered with.** The package runs as the same user that writes `strace.log` into a shared results directory, so a hostile install script can empty or replace the log and get a CLEAN result.
+- **Detection can be evaded.** The analyzer matches safe binaries, safe paths and package-manager names as substrings, and trusts any connection on port 53.
+- **Internal addresses are not flagged.** Connections to private, link-local and cloud metadata addresses are treated as safe.
+- **Project modes expose the folder beside the lockfile.** The whole parent directory is mounted read-only, so a dependency can read files such as `.env` there. Run project modes on a copy that holds only the manifest and lockfile.
+- **Go, Rust and .NET single-package modes are disabled.** They never installed the package. Use the `-project` modes.
+
 ## Troubleshooting
 
 **Docker not running:** Start Docker Desktop or the Docker daemon.
 
 **Permission denied on strace:** The sandbox uses `strace` inside the container. Some Docker configurations may block ptrace. Add `--cap-add=SYS_PTRACE` if needed (reduces isolation — only use for debugging).
 
-**Package install fails:** The sandbox has restricted network and filesystem access. Some packages with native dependencies may fail to build. This is expected — the sandbox is for monitoring behavior, not building production artifacts.
+**Package install fails:** The sandbox has a read-only filesystem; outbound network is open and monitored, not blocked. Some packages with native dependencies may fail to build. This is expected — the sandbox is for monitoring behavior, not building production artifacts.
 
 **Auth file not found in container:** Ensure the auth file path is absolute or relative to the current directory.

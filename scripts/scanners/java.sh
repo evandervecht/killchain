@@ -1,7 +1,7 @@
 #!/bin/bash
 # Java Security Scanner Module
 # Scans Java projects for common vulnerability patterns
-# Part of security-audit-skill multi-language scanning
+# Part of killchain multi-language scanning
 
 set -e
 
@@ -12,7 +12,7 @@ WARNINGS=0
 # Auto-detect Java source directories
 SCAN_DIRS=()
 for dir in src app; do
-    if [[ -d "$PROJECT_DIR/$dir" ]]; then
+    if [[ -d "$PROJECT_DIR/$dir" && ! -L "$PROJECT_DIR/$dir" ]]; then
         SCAN_DIRS+=("$PROJECT_DIR/$dir")
     fi
 done

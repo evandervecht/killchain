@@ -18,7 +18,7 @@ class ShowReferenceAction : AnAction() {
         Messages.showInfoMessage(
             "Reference lookup for $checkpointId.\n\n" +
                     "Use the MCP server tool 'explain_finding' for full reference documentation,\n" +
-                    "or check the references/ directory in the security-audit-skill repository.",
+                    "or check the references/ directory in the killchain repository.",
             "Security Audit Reference"
         )
     }

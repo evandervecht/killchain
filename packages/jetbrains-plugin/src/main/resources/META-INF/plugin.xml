@@ -2,7 +2,7 @@
     <id>com.securityaudit.plugin</id>
     <name>Security Audit</name>
     <version>0.1.0</version>
-    <vendor email="evan@evandervecht.com" url="https://github.com/evandervecht/security-audit-skill">
+    <vendor email="evan@evandervecht.com" url="https://github.com/evandervecht/killchain">
         E van der Vecht
     </vendor>
 
@@ -10,7 +10,7 @@
         <p>Real-time security vulnerability detection — 408 checkpoints across 9 languages,
         18 frameworks, cloud providers, CMS platforms, and mobile SDKs.</p>
 
-        <p>Powered by the security-audit-skill detection engine via LSP.</p>
+        <p>Powered by the killchain detection engine via LSP.</p>
 
         <h3>Features</h3>
         <ul>

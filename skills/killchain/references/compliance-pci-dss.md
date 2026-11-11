@@ -1,6 +1,6 @@
 # PCI DSS v4.0 Compliance Mapping
 
-Maps PCI DSS v4.0 requirements to security-audit-skill checkpoints. Use this reference when auditing applications that process, store, or transmit cardholder data. Checkpoints prefixed with LIVE-* are runtime/dynamic checks; all others are static analysis checkpoints defined in checkpoints.yaml.
+Maps PCI DSS v4.0 requirements to killchain checkpoints. Use this reference when auditing applications that process, store, or transmit cardholder data. Checkpoints prefixed with LIVE-* are runtime/dynamic checks; all others are static analysis checkpoints defined in checkpoints.yaml.
 
 **Standard:** PCI DSS v4.0 (March 2022, mandatory March 31, 2025)
 **Scope:** All 12 requirements mapped to 408 security checkpoints across 30+ technology stacks
@@ -201,7 +201,7 @@ Every user must be assigned a unique identification and strong authentication mu
 
 ## Requirement 9: Restrict Physical Access to Cardholder Data
 
-**Coverage: None.** This requirement addresses physical security controls (facility access, media handling, POS devices). The security-audit-skill operates entirely at the code and infrastructure-as-code level and does not address physical security.
+**Coverage: None.** This requirement addresses physical security controls (facility access, media handling, POS devices). The killchain operates entirely at the code and infrastructure-as-code level and does not address physical security.
 
 ---
 
@@ -263,7 +263,7 @@ System components, processes, and custom software must be tested frequently to e
 
 ## Requirement 12: Support Information Security with Organizational Policies and Programs
 
-**Coverage: Low.** This requirement addresses organizational policies, risk assessments, security awareness training, and incident response plans. The security-audit-skill provides:
+**Coverage: Low.** This requirement addresses organizational policies, risk assessments, security awareness training, and incident response plans. The killchain provides:
 
 | PCI DSS Sub-Req | Description | Related Checkpoints | Coverage |
 |---|---|---|---|
@@ -296,7 +296,7 @@ Requirements 6 (Secure Development) and 4 (Data in Transit) have the strongest c
 
 ### Recommended Supplementary Controls
 
-For full PCI DSS v4.0 compliance, supplement security-audit-skill with:
+For full PCI DSS v4.0 compliance, supplement killchain with:
 
 1. **Network scanning tools** (Nessus, Qualys) for Requirements 1, 11
 2. **Identity governance** (Okta, Azure AD reviews) for Requirements 7, 8

@@ -1,11 +1,12 @@
 import { readFileSync, readdirSync, existsSync } from "node:fs";
-import { join } from "node:path";
+import { basename, join } from "node:path";
 
 export function getReference(
   skillRoot: string,
   referenceName: string,
 ): string | null {
-  const refPath = join(skillRoot, "skills/security-audit/references", referenceName);
+  if (basename(referenceName) !== referenceName) return null;
+  const refPath = join(skillRoot, "skills/killchain/references", referenceName);
   try {
     return readFileSync(refPath, "utf-8");
   } catch {
@@ -14,7 +15,7 @@ export function getReference(
 }
 
 export function listReferences(skillRoot: string): string[] {
-  const refDir = join(skillRoot, "skills/security-audit/references");
+  const refDir = join(skillRoot, "skills/killchain/references");
   if (!existsSync(refDir)) return [];
   return readdirSync(refDir).filter((f) => f.endsWith(".md")).sort();
 }

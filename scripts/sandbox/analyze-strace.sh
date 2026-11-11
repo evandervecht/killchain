@@ -205,6 +205,8 @@ print_grouped_findings() {
 extract_ips() {
     local lines="$1"
     local outfile="$2"
+    # The container can leave a symlink here; remove it so the redirect cannot follow it to a host file.
+    rm -f -- "$outfile"
     [[ -z "$lines" ]] && return
     echo "$lines" | grep -oE 'inet_addr\("[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"\)' | \
         grep -oE "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+" | sort -u | while IFS= read -r ip; do

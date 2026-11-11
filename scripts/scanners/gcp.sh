@@ -1,7 +1,7 @@
 #!/bin/bash
 # GCP Security Scanner Module
 # Scans GCP infrastructure files for common vulnerability patterns
-# Part of security-audit-skill cloud security references
+# Part of killchain cloud security references
 
 set -e
 

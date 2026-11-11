@@ -1,5 +1,5 @@
 {
-    "name": "evandervecht/security-audit-skill",
+    "name": "evandervecht/killchain",
     "description": "AI skill for security audits (OWASP, CWE, CVSS). Universal patterns + deep PHP/TYPO3 scanning with 80+ checkpoints.",
     "type": "ai-agent-skill",
     "license": "MIT",
@@ -10,6 +10,6 @@
         }
     ],
     "extra": {
-        "ai-agent-skill": "skills/security-audit/SKILL.md"
+        "ai-agent-skill": "skills/killchain/SKILL.md"
     }
 }

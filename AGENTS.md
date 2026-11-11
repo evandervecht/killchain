@@ -1,12 +1,12 @@
-# Security Audit Skill
+# Killchain
 
 Security audit patterns (OWASP Top 10, CWE Top 25, CVSS v4.0) and deep PHP/TYPO3 code scanning with 80+ checkpoints.
 
 ## Repo Structure
 
 ```
-security-audit-skill/
-├── skills/security-audit/       # Skill definition, checkpoints, scripts, references
+killchain/
+├── skills/killchain/       # Skill definition, checkpoints, scripts, references
 │   ├── SKILL.md                 # Skill metadata and trigger patterns
 │   ├── checkpoints.yaml         # 80+ automated security checkpoints
 │   ├── scripts/                 # Audit scripts (security-audit.sh, github-security-audit.sh)
@@ -27,8 +27,8 @@ security-audit-skill/
 No Makefile or build scripts defined. Key operations:
 
 - Install PHP dependencies: run `composer` with `install`
-- Run PHP project security audit: `bash skills/security-audit/scripts/security-audit.sh`
-- Run GitHub repo security audit: `bash skills/security-audit/scripts/github-security-audit.sh`
+- Run PHP project security audit: `bash skills/killchain/scripts/security-audit.sh`
+- Run GitHub repo security audit: `bash skills/killchain/scripts/github-security-audit.sh`
 - Verify harness maturity: `bash scripts/verify-harness.sh --format=text --status`
 
 ## Rules
@@ -44,8 +44,8 @@ No Makefile or build scripts defined. Key operations:
 
 ## References
 
-- [SKILL.md](skills/security-audit/SKILL.md) -- skill definition and trigger patterns
-- [checkpoints.yaml](skills/security-audit/checkpoints.yaml) -- 80+ automated checkpoints
-- [references/](skills/security-audit/references/) -- 19 security reference guides
+- [SKILL.md](skills/killchain/SKILL.md) -- skill definition and trigger patterns
+- [checkpoints.yaml](skills/killchain/checkpoints.yaml) -- 80+ automated checkpoints
+- [references/](skills/killchain/references/) -- 19 security reference guides
 - [SECURITY.md](SECURITY.md) -- security policy
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) -- architecture overview

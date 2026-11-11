@@ -12,7 +12,7 @@ WARNINGS=0
 # Auto-detect Kotlin source directories (fall back to the project dir itself)
 SCAN_DIRS=()
 for dir in src app server backend; do
-    if [[ -d "$PROJECT_DIR/$dir" ]]; then
+    if [[ -d "$PROJECT_DIR/$dir" && ! -L "$PROJECT_DIR/$dir" ]]; then
         SCAN_DIRS+=("$PROJECT_DIR/$dir")
     fi
 done
@@ -157,4 +157,4 @@ echo "Errors: $ERRORS"
 echo "Warnings: $WARNINGS"
 
 # Exit with error count for dispatcher to aggregate
-exit "$ERRORS"
+exit $(( ERRORS > 255 ? 255 : ERRORS ))

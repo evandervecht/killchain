@@ -115,8 +115,14 @@ SECRET_PATTERNS=(
 )
 
 # Directories and files to skip
-EXCLUDE_DIRS="node_modules|vendor|dist|build|\.git|target|\.next|coverage|__pycache__|\.cargo|\.nuget"
-EXCLUDE_FILES="\.(lock|sum|min\.js|min\.css|map|woff|woff2|ttf|eot|png|jpg|jpeg|gif|ico|svg|pdf)$"
+# Exclusions apply to paths only, never to the matched line's content.
+EXCLUDES=()
+for d in node_modules vendor dist build .git target .next coverage __pycache__ .cargo .nuget; do
+    EXCLUDES+=(--exclude-dir="$d")
+done
+for f in '*.min.js' '*.example' '*.example.*' '*.sample' '*.sample.*' '*.template' '*.template.*'; do
+    EXCLUDES+=(--exclude="$f")
+done
 
 # Allowlist: drop well-known documentation/placeholder secrets (reduce false positives).
 # AWS docs example key, common placeholder tokens, and clearly-fake test values are not real leaks.
@@ -130,7 +136,11 @@ for name in "${!SECRET_PATTERNS[@]}"; do
         --include="*.php" --include="*.yaml" --include="*.yml" --include="*.json" --include="*.xml" \
         --include="*.env" --include="*.cfg" --include="*.conf" --include="*.ini" --include="*.toml" \
         --include="*.properties" --include="*.sh" --include="*.bash" --include="*.zsh" \
-        2>/dev/null | grep -vE "$EXCLUDE_DIRS" | grep -vE "$EXCLUDE_FILES" | grep -vE "\.(example|sample|template)" | grep -viE "$SECRET_ALLOWLIST" | head -5 || true)
+        "${EXCLUDES[@]}" 2>/dev/null | while IFS= read -r line; do
+            # Allowlist the matched secret only; a placeholder word elsewhere on the line must not hide it.
+            secret=$(grep -oE -e "$pattern" <<<"$line" | head -1)
+            grep -qiE "$SECRET_ALLOWLIST" <<<"$secret" || echo "$line"
+        done | head -5 || true)
 
     if [[ -n "$MATCHES" ]]; then
         echo "WARNING: Potential $name found:"
@@ -163,4 +173,4 @@ echo "--- Secrets Scanner Results ---"
 echo "Errors: $ERRORS"
 echo "Warnings: $WARNINGS"
 
-exit "$ERRORS"
+exit $(( ERRORS > 255 ? 255 : ERRORS ))

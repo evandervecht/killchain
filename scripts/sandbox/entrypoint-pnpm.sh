@@ -124,7 +124,7 @@ const sbom = {
   version: 1,
   metadata: {
     timestamp: new Date().toISOString(),
-    tools: [{ vendor: 'security-audit-skill', name: 'dependency-sandbox', version: '1.0.0' }],
+    tools: [{ vendor: 'killchain', name: 'dependency-sandbox', version: '1.0.0' }],
     component: { type: 'application', name: 'sandbox-project', version: '1.0.0' }
   },
   components: components

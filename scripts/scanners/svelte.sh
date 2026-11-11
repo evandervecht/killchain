@@ -1,7 +1,7 @@
 #!/bin/bash
 # Svelte / SvelteKit Security Scanner Module
 # Scans Svelte and SvelteKit projects for common vulnerability patterns
-# Part of security-audit-skill modular scanner architecture
+# Part of killchain modular scanner architecture
 
 set -e
 
@@ -12,7 +12,7 @@ WARNINGS=0
 # Auto-detect Svelte source directories
 SCAN_DIRS=()
 for dir in src lib routes; do
-    if [[ -d "$PROJECT_DIR/$dir" ]]; then
+    if [[ -d "$PROJECT_DIR/$dir" && ! -L "$PROJECT_DIR/$dir" ]]; then
         SCAN_DIRS+=("$PROJECT_DIR/$dir")
     fi
 done
@@ -111,4 +111,4 @@ echo "Errors:   $ERRORS"
 echo "Warnings: $WARNINGS"
 echo "Total:    $((ERRORS + WARNINGS))"
 
-exit $ERRORS
+exit $(( ERRORS > 255 ? 255 : ERRORS ))

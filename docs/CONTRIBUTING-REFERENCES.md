@@ -14,12 +14,12 @@ Each reference is paired with checkpoints in `checkpoints.yaml`, a scanner modul
 ## Step-by-Step: Adding a New Language
 
 1. **Create the reference file** using `docs/templates/language-security-features-template.md`
-   - Save to `skills/security-audit/references/{language}-security-features.md`
+   - Save to `skills/killchain/references/{language}-security-features.md`
    - Target size: 15-25KB
    - Cover top 10-15 vulnerability patterns for the language
    - Organize by language version where applicable
 
-2. **Add checkpoints** to `skills/security-audit/checkpoints.yaml`
+2. **Add checkpoints** to `skills/killchain/checkpoints.yaml`
    - Use the naming convention `SA-{LANG}-{NN}` (see table below)
    - Add 10-20 checkpoints per language
    - Each checkpoint needs: `id`, `type`, `target`, `pattern`, `severity`, `desc`
@@ -35,7 +35,7 @@ Each reference is paired with checkpoints in `checkpoints.yaml`, a scanner modul
    - Create `evals/{language}/safe/` with similar-looking safe code that MUST NOT trigger
    - One file per detection pattern, named after the checkpoint (e.g., `SA-PY-01_pickle_loads.py`)
 
-5. **Update the detection mapping** in `skills/security-audit/references/stack-detection.md`
+5. **Update the detection mapping** in `skills/killchain/references/stack-detection.md`
    - Add indicator files to the detection mapping table
 
 6. **Register in validate_checkpoints.py**

@@ -24,7 +24,7 @@ fi
 # Determine scan directories
 SCAN_DIRS=()
 for dir in modules/custom themes/custom src; do
-    if [[ -d "$PROJECT_DIR/$dir" ]]; then
+    if [[ -d "$PROJECT_DIR/$dir" && ! -L "$PROJECT_DIR/$dir" ]]; then
         SCAN_DIRS+=("$PROJECT_DIR/$dir")
     fi
 done

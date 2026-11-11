@@ -80,7 +80,7 @@ def validate_skill(path: Path) -> list[str]:
 
 def plugin_version_errs() -> list[str]:
     # Plugin installs read plugin.json; the skill's version is SKILL.md metadata.version.
-    skill_md = SKILLS_DIR / "security-audit" / "SKILL.md"
+    skill_md = SKILLS_DIR / "killchain" / "SKILL.md"
     try:
         fm, _ = parse_frontmatter(skill_md.read_text())
     except (ValueError, yaml.YAMLError) as e:

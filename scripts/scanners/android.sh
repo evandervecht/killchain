@@ -1,7 +1,7 @@
 #!/bin/bash
 # Android Security Scanner Module
 # Scans Android projects for common vulnerability patterns
-# Part of security-audit-skill multi-language scanning
+# Part of killchain multi-language scanning
 
 set -e
 
@@ -21,7 +21,7 @@ MANIFEST_DIR=$(dirname "$MANIFEST")
 # Auto-detect source directories
 SCAN_DIRS=()
 for dir in app/src/main src/main src app; do
-    if [[ -d "$PROJECT_DIR/$dir" ]]; then
+    if [[ -d "$PROJECT_DIR/$dir" && ! -L "$PROJECT_DIR/$dir" ]]; then
         SCAN_DIRS+=("$PROJECT_DIR/$dir")
     fi
 done

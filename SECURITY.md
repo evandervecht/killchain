@@ -14,14 +14,14 @@ this project, please report it responsibly.
 
 ### Preferred Method: GitHub Private Vulnerability Reporting
 
-Report vulnerabilities through [GitHub Private Vulnerability Reporting](https://github.com/evandervecht/security-audit-skill/security/advisories/new).
+Report vulnerabilities through [GitHub Private Vulnerability Reporting](https://github.com/evandervecht/killchain/security/advisories/new).
 This creates a private advisory visible only to repository maintainers until a
 fix is available.
 
 ### Security Contact
 
 For sensitive disclosures or if GitHub PVR is unavailable, open an issue on
-[GitHub](https://github.com/evandervecht/security-audit-skill/issues).
+[GitHub](https://github.com/evandervecht/killchain/issues).
 
 ## Response SLAs
 
@@ -60,7 +60,7 @@ reporter with a clear justification and revised timeline.
 
 The following components are covered by this security policy:
 
-- **Skill definitions** (`skills/security-audit/SKILL.md`, reference documents)
+- **Skill definitions** (`skills/killchain/SKILL.md`, reference documents)
 - **Scripts** (`scripts/check_risky_command.py`, `scripts/security-audit.sh`)
 - **Hooks** (`hooks/hooks.json`, PreToolUse hook configuration)
 - **CI/CD workflows** (`.github/workflows/`)
@@ -81,8 +81,11 @@ This project implements the following security measures:
 
 ### PreToolUse Hook
 
-A `PreToolUse` hook (`scripts/check_risky_command.py`) inspects commands before
-execution, detecting patterns associated with:
+A `PreToolUse` hook (`scripts/check_risky_command.py`) inspects Bash and PowerShell
+commands before execution. For a high-severity match Claude Code asks the user to
+confirm the command; for lower ones it shows a warning. The hook never denies a
+command, and a pattern list can be evaded, so treat it as a safety net. It detects
+patterns associated with:
 
 - Destructive file operations (`rm -rf /`, `chmod 777`)
 - Network exfiltration (`curl | sh`, `wget` with suspicious targets)
@@ -109,7 +112,7 @@ Reference documents and audit scripts are aligned with:
   no post-installation integrity verification. If an attacker gains write access to the
   installed skill directory, they could modify the hook to suppress warnings. Users
   should monitor file modifications in their skill installation directory.
-- **Hook scope:** The PreToolUse hook only intercepts the `Bash` tool. Commands executed
+- **Hook scope:** The PreToolUse hook only intercepts the `Bash` and `PowerShell` tools. Commands executed
   via other tool types (e.g., writing a script file and executing it separately) are not
   inspected by the hook.
 
@@ -125,4 +128,4 @@ If you report a valid vulnerability, we will:
 ## Questions
 
 For non-vulnerability security questions about this project, open a
-[GitHub Discussion](https://github.com/evandervecht/security-audit-skill/discussions).
+[GitHub Discussion](https://github.com/evandervecht/killchain/discussions).

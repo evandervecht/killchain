@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """
 PreToolUse hook to detect potentially risky command patterns before execution.
-Warns about dangerous operations without blocking (informational only).
+High-severity matches make Claude Code ask the user to confirm the command;
+lower ones show a warning. It never denies a command outright, and a pattern
+list can be evaded, so it is a safety net and not a sandbox.
 """
 
 import sys
@@ -12,12 +14,12 @@ import json
 RISKY_PATTERNS = [
     # Destructive file operations
     {
-        "pattern": r"rm\s+(-[rf]+\s+)?[/~]",
+        "pattern": r"rm\s+(-{1,2}[\w-]+\s+)*[/~]",
         "severity": "high",
         "message": "Recursive delete on root or home directory",
     },
     {
-        "pattern": r"rm\s+-rf?\s+\*",
+        "pattern": r"rm\s+(-{1,2}[\w-]+\s+)+\*",
         "severity": "high",
         "message": "Recursive delete with wildcard",
     },
@@ -34,17 +36,17 @@ RISKY_PATTERNS = [
     },
     # Remote code execution patterns
     {
-        "pattern": r"curl.*\|\s*(ba)?sh",
+        "pattern": r"(curl|wget)\b.*\|\s*(sudo\s+)?((ba|z|da|k)?sh|python[\d.]*|perl|ruby|node)\b",
         "severity": "high",
         "message": "Piping remote content directly to shell - verify source first",
     },
     {
-        "pattern": r"wget.*-O\s*-\s*\|\s*(ba)?sh",
+        "pattern": r"(ba|z)?sh\s+<\(\s*(curl|wget)\b",
         "severity": "high",
         "message": "Piping remote content directly to shell",
     },
     {
-        "pattern": r"eval\s+\$\(",
+        "pattern": r"eval\s+[\"']?\$\(",
         "severity": "medium",
         "message": "Dynamic eval of command substitution",
     },
@@ -199,11 +201,11 @@ def main():
     if not input_data:
         return
 
-    # Parse the tool input
+    # Claude Code sends the event as JSON with the command under tool_input.
     try:
         data = json.loads(input_data)
-        command = data.get("command", "")
-    except (json.JSONDecodeError, TypeError):
+        command = (data.get("tool_input") or {}).get("command") or data.get("command", "")
+    except (json.JSONDecodeError, TypeError, AttributeError):
         command = input_data
 
     if not command:
@@ -219,13 +221,15 @@ def main():
             icon = severity_icons.get(w["severity"], "⚠️")
             warning_lines.append(f"  {icon} [{w['severity'].upper()}] {w['message']}")
 
-        print(f"""<system-reminder>
-Security warning for command:
-{chr(10).join(warning_lines)}
-
-Review the command carefully before proceeding.
-The security-audit skill can help assess risks: /security-audit
-</system-reminder>""")
+        reason = "Security warning for command:\n" + "\n".join(warning_lines)
+        # Plain stdout from a PreToolUse hook is not shown to anyone, so answer in JSON.
+        if any(w["severity"] == "high" for w in warnings):
+            out = {"hookSpecificOutput": {"hookEventName": "PreToolUse",
+                                          "permissionDecision": "ask",
+                                          "permissionDecisionReason": reason}}
+        else:
+            out = {"systemMessage": reason}
+        print(json.dumps(out))
 
 
 if __name__ == "__main__":

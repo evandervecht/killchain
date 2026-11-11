@@ -1,6 +1,6 @@
 # Plan: Multi-Language & Framework Security References
 
-> Source PRD: [evandervecht/security-audit-skill#3](https://github.com/evandervecht/security-audit-skill/issues/3)
+> Source PRD: [evandervecht/killchain#3](https://github.com/evandervecht/killchain/issues/3)
 > Design Spec: `docs/superpowers/specs/2026-03-31-multi-language-security-references-design.md`
 
 ## Architectural decisions

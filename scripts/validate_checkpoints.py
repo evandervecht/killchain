@@ -94,7 +94,7 @@ def validate_checkpoint_id(checkpoint_id: str) -> str | None:
 
 
 def main() -> int:
-    with open("skills/security-audit/checkpoints.yaml") as f:
+    with open("skills/killchain/checkpoints.yaml") as f:
         data = yaml.safe_load(f)
 
     if "mechanical" not in data:
@@ -127,7 +127,7 @@ def main() -> int:
     print(f"Valid: {len(mech_ids)} mechanical + {len(llm_ids)} LLM review checkpoints")
 
     # Check that expected reference files exist
-    ref_dir = "skills/security-audit/references"
+    ref_dir = "skills/killchain/references"
     ref_files = os.listdir(ref_dir) if os.path.isdir(ref_dir) else []
     expected_refs = [
         "owasp-top10.md", "cwe-top25.md", "xxe-prevention.md", "cvss-scoring.md",

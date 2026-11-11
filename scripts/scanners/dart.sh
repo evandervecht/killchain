@@ -12,7 +12,7 @@ WARNINGS=0
 # Auto-detect Dart source directories (pub layout + Flutter conventions)
 SCAN_DIRS=()
 for dir in lib bin test example integration_test; do
-    if [[ -d "$PROJECT_DIR/$dir" ]]; then
+    if [[ -d "$PROJECT_DIR/$dir" && ! -L "$PROJECT_DIR/$dir" ]]; then
         SCAN_DIRS+=("$PROJECT_DIR/$dir")
     fi
 done
@@ -265,4 +265,4 @@ echo "Errors: $ERRORS"
 echo "Warnings: $WARNINGS"
 
 # Exit with error count for dispatcher to aggregate
-exit "$ERRORS"
+exit $(( ERRORS > 255 ? 255 : ERRORS ))

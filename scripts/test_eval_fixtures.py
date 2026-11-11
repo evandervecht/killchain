@@ -20,7 +20,7 @@ import sys
 import yaml
 
 EVALS_DIR = "evals"
-CHECKPOINTS_FILE = "skills/security-audit/checkpoints.yaml"
+CHECKPOINTS_FILE = "skills/killchain/checkpoints.yaml"
 
 
 def load_checkpoint_patterns() -> dict[str, str]:

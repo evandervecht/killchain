@@ -11,7 +11,7 @@ import com.intellij.openapi.components.Storage
 class SecurityAuditSettings : PersistentStateComponent<SecurityAuditSettings.State> {
 
     data class State(
-        var lspServerPath: String = "node_modules/@security-audit/lsp-server/dist/index.js",
+        var lspServerPath: String = "node_modules/@killchain/lsp-server/dist/index.js",
         var minimumSeverity: String = "info",
         var enabledLanguages: MutableList<String> = mutableListOf(),
         var excludedCheckpoints: MutableList<String> = mutableListOf()

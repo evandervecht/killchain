@@ -2,7 +2,7 @@
 # GitHub Actions Workflow Security Scanner Module
 # Scans .github/workflows/*.yml and composite actions for pwn requests, expression
 # injection, unpinned actions, over-broad tokens and other CI supply-chain risks.
-# Part of security-audit-skill modular scanner architecture
+# Part of killchain modular scanner architecture
 
 set -e
 
@@ -94,4 +94,4 @@ echo "Errors:   $ERRORS"
 echo "Warnings: $WARNINGS"
 echo "Total:    $((ERRORS + WARNINGS))"
 
-exit $ERRORS
+exit $(( ERRORS > 255 ? 255 : ERRORS ))

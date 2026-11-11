@@ -1,7 +1,7 @@
 #!/bin/bash
 # iOS Security Scanner Module
 # Scans iOS projects for common vulnerability patterns
-# Part of security-audit-skill multi-language scanning
+# Part of killchain multi-language scanning
 
 set -e
 
@@ -21,7 +21,7 @@ fi
 # Auto-detect source directories
 SCAN_DIRS=()
 for dir in Sources src App app; do
-    if [[ -d "$PROJECT_DIR/$dir" ]]; then
+    if [[ -d "$PROJECT_DIR/$dir" && ! -L "$PROJECT_DIR/$dir" ]]; then
         SCAN_DIRS+=("$PROJECT_DIR/$dir")
     fi
 done

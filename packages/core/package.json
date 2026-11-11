@@ -1,13 +1,13 @@
 {
-  "name": "@security-audit/core",
+  "name": "@killchain/core",
   "version": "0.1.0",
-  "description": "Core detection engine for security-audit-skill — loads checkpoints, runs regex patterns, returns structured findings",
+  "description": "Core detection engine for killchain — loads checkpoints, runs regex patterns, returns structured findings",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "node --test dist/**/*.test.js"
+    "test": "node --test \"test/*.test.mjs\""
   },
   "dependencies": {
     "yaml": "^2.7.0",

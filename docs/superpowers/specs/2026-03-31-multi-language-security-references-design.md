@@ -138,17 +138,17 @@ Split the existing bundled `framework-security.md` (TYPO3/Symfony/Laravel) into 
 ### Complete File Inventory
 
 **Phase 1 (new files):**
-- `skills/security-audit/references/javascript-typescript-security-features.md`
-- `skills/security-audit/references/python-security-features.md`
-- `skills/security-audit/references/java-security-features.md`
-- `skills/security-audit/references/csharp-security-features.md`
-- `skills/security-audit/references/go-security-features.md`
-- `skills/security-audit/references/ruby-security-features.md`
-- `skills/security-audit/references/rust-security-features.md`
-- `skills/security-audit/references/nodejs-security-features.md`
-- `skills/security-audit/references/typo3-security.md` (extracted from framework-security.md)
-- `skills/security-audit/references/symfony-security.md` (extracted from framework-security.md)
-- `skills/security-audit/references/laravel-security.md` (extracted from framework-security.md)
+- `skills/killchain/references/javascript-typescript-security-features.md`
+- `skills/killchain/references/python-security-features.md`
+- `skills/killchain/references/java-security-features.md`
+- `skills/killchain/references/csharp-security-features.md`
+- `skills/killchain/references/go-security-features.md`
+- `skills/killchain/references/ruby-security-features.md`
+- `skills/killchain/references/rust-security-features.md`
+- `skills/killchain/references/nodejs-security-features.md`
+- `skills/killchain/references/typo3-security.md` (extracted from framework-security.md)
+- `skills/killchain/references/symfony-security.md` (extracted from framework-security.md)
+- `skills/killchain/references/laravel-security.md` (extracted from framework-security.md)
 - `scripts/scanners/python.sh`
 - `scripts/scanners/javascript.sh`
 - `scripts/scanners/java.sh`
@@ -158,13 +158,13 @@ Split the existing bundled `framework-security.md` (TYPO3/Symfony/Laravel) into 
 - `scripts/scanners/rust.sh`
 - `scripts/scanners/nodejs.sh`
 - `scripts/scanners/php.sh` (extracted from security-audit.sh)
-- `skills/security-audit/evals/{language}/vulnerable/*.{ext}` (per language)
-- `skills/security-audit/evals/{language}/safe/*.{ext}` (per language)
+- `skills/killchain/evals/{language}/vulnerable/*.{ext}` (per language)
+- `skills/killchain/evals/{language}/safe/*.{ext}` (per language)
 - `docs/CONTRIBUTING-REFERENCES.md` (or section in existing docs)
 - Reference templates (language + framework)
 
 **Phase 2 (new files):**
-- 15 framework reference files in `skills/security-audit/references/`
+- 15 framework reference files in `skills/killchain/references/`
 - Eval fixtures per framework
 
 **Phase 3 (new files):**

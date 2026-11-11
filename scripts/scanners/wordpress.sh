@@ -24,7 +24,7 @@ fi
 # Determine scan directories (plugins, themes, mu-plugins)
 SCAN_DIRS=()
 for dir in wp-content/plugins wp-content/themes wp-content/mu-plugins; do
-    if [[ -d "$PROJECT_DIR/$dir" ]]; then
+    if [[ -d "$PROJECT_DIR/$dir" && ! -L "$PROJECT_DIR/$dir" ]]; then
         SCAN_DIRS+=("$PROJECT_DIR/$dir")
     fi
 done

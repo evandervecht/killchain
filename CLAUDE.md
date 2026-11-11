@@ -1,4 +1,4 @@
-# CLAUDE.md — Security Audit Skill
+# CLAUDE.md — Killchain
 
 ## Project Overview
 
@@ -25,9 +25,9 @@ cd packages/lsp-server && npm run build
 
 ## Repository Structure
 
-- `skills/security-audit/` — Skill entry point, checkpoints, references (what `npx skills add` installs)
-- `skills/security-audit/references/` — 85 security reference files
-- `skills/security-audit/checkpoints.yaml` — 565 checkpoints (525 mechanical + 40 LLM)
+- `skills/killchain/` — Skill entry point, checkpoints, references (what `npx skills add` installs)
+- `skills/killchain/references/` — 85 security reference files
+- `skills/killchain/checkpoints.yaml` — 565 checkpoints (525 mechanical + 40 LLM)
 - `evals/` — 552 eval fixture tests (vulnerable + safe pairs)
 - `scripts/scanners/` — 32 per-language/framework scanner modules
 - `scripts/sandbox/` — Docker sandbox Dockerfiles and strace analyzer
@@ -56,7 +56,7 @@ See `docs/CONTRIBUTING-REFERENCES.md` for the full guide. Summary:
 2. Add checkpoints to `checkpoints.yaml` (before `llm_reviews:`)
 3. Create scanner module in `scripts/scanners/`
 4. Add eval fixtures in `evals/`
-5. Update the detection mapping in `skills/security-audit/references/stack-detection.md`
+5. Update the detection mapping in `skills/killchain/references/stack-detection.md`
 6. Add prefix to `scripts/validate_checkpoints.py`
 
 ## CI
@@ -65,6 +65,10 @@ Tests run on push/PR to main:
 - `test_risky_patterns.py` — hook pattern tests
 - `validate_checkpoints.py` — checkpoint YAML + namespace validation
 - `test_eval_fixtures.py` — regex fixture tests (552 tests)
+- `test_skill_scan.py` — agent skill scan pattern tests
+- `test_dashboard.py` — findings dashboard generator tests
+- `test_self_audit_fixes.py` — regression tests for the shell, sandbox and Python fixes from the self-audit
+- `npm test` in `packages/{core,runtime-agent,mcp-server,lsp-server}` — regression tests for the TypeScript fixes
 
 ## GitHub Issues
 

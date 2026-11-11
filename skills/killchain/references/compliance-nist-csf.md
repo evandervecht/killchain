@@ -1,6 +1,6 @@
 # NIST Cybersecurity Framework 2.0 — Security Audit Checkpoint Mapping
 
-Mapping of NIST CSF 2.0 (released February 2024) functions, categories, and subcategories to the 408 security-audit-skill checkpoints. This reference enables organizations aligning to NIST CSF to demonstrate how automated code and runtime scanning contributes to cybersecurity outcomes.
+Mapping of NIST CSF 2.0 (released February 2024) functions, categories, and subcategories to the 408 killchain checkpoints. This reference enables organizations aligning to NIST CSF to demonstrate how automated code and runtime scanning contributes to cybersecurity outcomes.
 
 **Framework Version:** NIST CSF 2.0 (NIST CSWP 29, February 26, 2024)
 **Key Change from 1.1:** Addition of GOVERN (GV) function as the sixth core function.
@@ -226,4 +226,4 @@ Physical controls (ID.AM-01, DE.CM-02, PR.AA-06) and procedural controls (RS.MA-
 
 | Date | Change | Author |
 |---|---|---|
-| 2026-03-31 | Initial NIST CSF 2.0 mapping created covering all 6 functions and 100 subcategories | security-audit-skill |
+| 2026-03-31 | Initial NIST CSF 2.0 mapping created covering all 6 functions and 100 subcategories | killchain |
