@@ -122,13 +122,33 @@ uv run ./skills/killchain/scripts/dashboard.py findings.json       # build dashb
 - **How it works:** [Architecture](docs/ARCHITECTURE.md)
 - **Contributing:** [Add a language or framework](docs/CONTRIBUTING-REFERENCES.md) · [Security policy](SECURITY.md)
 
+## Compared with Cloudflare's security-audit skill
+
+[cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill) (MIT) is a six-phase audit skill with 11 domain hunting guides, a coverage ledger and a JSON report schema with two validators. It is language-agnostic: it has no per-language or per-framework guides and no regex checkpoints. Killchain's references were checked against its guides at commit `c1c8a8c` (September 2026):
+
+| Cloudflare guide | Killchain references | Missing in Killchain |
+|---|---|---|
+| `AI-AND-LLM` | [llm-security](skills/killchain/references/llm-security.md), [agent-skill-scan](skills/killchain/references/agent-skill-scan.md) | Nothing found |
+| `CLIENT-SIDE` | [frontend-security](skills/killchain/references/frontend-security.md), [security-headers](skills/killchain/references/security-headers.md), the framework guides | Service workers, cross-site leaks |
+| `CLOUD-AND-DEPLOYMENT` | [aws](skills/killchain/references/aws-security.md), [azure](skills/killchain/references/azure-security.md), [gcp](skills/killchain/references/gcp-security.md), [kubernetes](skills/killchain/references/kubernetes-security.md), [iac](skills/killchain/references/iac-security.md) | Nothing found |
+| `SUPPLY-CHAIN-AND-RELEASE` | [supply-chain-security](skills/killchain/references/supply-chain-security.md), [ci-security-pipeline](skills/killchain/references/ci-security-pipeline.md), [github-actions-security](skills/killchain/references/github-actions-security.md) | Nothing found |
+| `WEB-PROTOCOL-AND-AUTH` | [authentication-patterns](skills/killchain/references/authentication-patterns.md), [api-security](skills/killchain/references/api-security.md) | Request smuggling, SAML, passkeys |
+| `DESKTOP-MOBILE-AND-LOCAL-IPC` | [android](skills/killchain/references/android-sdk-security.md), [ios](skills/killchain/references/ios-sdk-security.md), [flutter](skills/killchain/references/flutter-security.md) | Desktop apps (Electron), local IPC |
+| `RESOURCE-EXHAUSTION-AND-AVAILABILITY` | ReDoS and size limits, spread over the language guides | A guide of its own |
+| `PROTOCOLS-RPC-AND-MESSAGING` | [graphql-security](skills/killchain/references/graphql-security.md); gRPC only in passing | RPC and message brokers |
+| `DATA-ISOLATION-AND-LIFECYCLE` | Tenant checks only in passing | Tenant isolation, backup, deletion |
+| `MEMORY-SAFETY-AND-BINARY` | [rust](skills/killchain/references/rust-security-features.md), [cwe-top25](skills/killchain/references/cwe-top25.md) | C and C++ memory safety, kernel |
+| `RECONNAISSANCE`, `HUNTING`, `VALIDATION-AND-REPORTING` | [stack-detection](skills/killchain/references/stack-detection.md), [finding-verification](skills/killchain/references/finding-verification.md) | Coverage ledger |
+
+The gaps are on the roadmap below. Killchain adds what Cloudflare's skill leaves out: guides per language and framework, regex checkpoints with test fixtures, and editor integrations.
+
 ## Roadmap
 
 **Maybe later**, still being thought through:
 
 - **Smaller loads:** one checkpoint file per stack, and each long reference split into a short hunting guide and a longer fixing guide.
 - **A coverage list:** what an audit checked, what it skipped and why.
-- **More domains:** request smuggling, SAML and passkeys, tenant isolation and data lifecycle, RPC and message brokers, resource exhaustion, C and C++ memory safety.
+- **More domains:** request smuggling, SAML and passkeys, service workers and cross-site leaks, desktop apps and local IPC, tenant isolation and data lifecycle, RPC and message brokers, resource exhaustion, C and C++ memory safety.
 
 **Not planned:**
 
@@ -144,3 +164,5 @@ uv run ./skills/killchain/scripts/dashboard.py findings.json       # build dashb
 ## Credits
 
 Forked from [netresearch/security-audit-skill](https://github.com/netresearch/security-audit-skill) by [Netresearch DTT GmbH](https://www.netresearch.de). Extended and maintained by [E van der Vecht](https://github.com/evandervecht).
+
+References compared against [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill) by Cloudflare, Inc.
