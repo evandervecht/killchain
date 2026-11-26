@@ -12,7 +12,7 @@ import {
   CodeActionKind,
   CodeActionParams,
   Command,
-} from "vscode-languageserver/node.js";
+} from "vscode-languageserver/node";
 import { TextDocument } from "vscode-languageserver-textdocument";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
